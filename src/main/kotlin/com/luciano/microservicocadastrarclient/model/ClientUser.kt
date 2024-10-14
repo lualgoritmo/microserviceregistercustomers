@@ -1,22 +1,24 @@
 package com.luciano.microservicocadastrarclient.model
 
 import com.fasterxml.jackson.annotation.JsonBackReference
-import jakarta.persistence.*
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.Id
+import jakarta.persistence.Table
+import jakarta.persistence.GenerationType
+import jakarta.persistence.CascadeType
+import jakarta.persistence.OneToMany
 import jakarta.validation.constraints.Email
-import org.hibernate.validator.constraints.br.CPF
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.*
-
 @Entity
 @Table(name = "tb_client")
-data class Client(
+data class ClientUser(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val idClient: UUID? = null,
+    val idClient: Long? = null,
     val nameSurname: String,
-    @CPF
-    val cpf: CPF,
+    val cpf: String,
     val cep: String,
     val dateOfBirth: LocalDate,
     val registrationDate: LocalDateTime = LocalDateTime.now(),
@@ -26,5 +28,5 @@ data class Client(
     val email: String,
     @OneToMany(mappedBy = "client", cascade = [CascadeType.ALL])
     @JsonBackReference
-    val addressClient: List<AddressClient> = emptyList()
+    var addressClient: Set<AddressClient>
 )

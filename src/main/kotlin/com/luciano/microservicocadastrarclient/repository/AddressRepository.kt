@@ -2,6 +2,7 @@ package com.luciano.microservicocadastrarclient.repository
 
 import com.luciano.microservicocadastrarclient.model.AddressClient
 import org.springframework.data.jpa.repository.JpaRepository
-import java.util.*
+import org.springframework.stereotype.Repository
 
-interface AddressClient : JpaRepository<AddressClient, UUID>
+@Repository
+interface AddressRepository : JpaRepository<AddressClient, Long>

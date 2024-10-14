@@ -8,7 +8,7 @@ import java.util.UUID
 data class AddressClient(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val idAddress: UUID ?= null,
+    val idAddress: Long ?= null,
     val cep: String,
     val road: String,
     val city: String,
@@ -17,5 +17,5 @@ data class AddressClient(
     val uf: Char,
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_client")
-    val client: Client
+    val client: ClientUser
 )

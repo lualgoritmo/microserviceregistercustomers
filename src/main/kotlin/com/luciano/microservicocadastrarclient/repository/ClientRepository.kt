@@ -1,7 +1,8 @@
 package com.luciano.microservicocadastrarclient.repository
 
-import jakarta.ws.rs.client.Client
+import com.luciano.microservicocadastrarclient.model.ClientUser
 import org.springframework.data.jpa.repository.JpaRepository
-import java.util.*
+import org.springframework.stereotype.Repository
 
-interface ClientRepository : JpaRepository<Client, UUID>
+@Repository
+interface ClientRepository : JpaRepository<ClientUser, Long>
