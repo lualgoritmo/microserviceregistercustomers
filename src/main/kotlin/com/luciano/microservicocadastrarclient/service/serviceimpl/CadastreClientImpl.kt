@@ -2,6 +2,7 @@ package com.luciano.microservicocadastrarclient.service.serviceimpl
 
 import com.luciano.microservicocadastrarclient.model.AddressClient
 import com.luciano.microservicocadastrarclient.model.ClientUser
+import com.luciano.microservicocadastrarclient.repository.AddressRepository
 import com.luciano.microservicocadastrarclient.repository.ClientRepository
 import com.luciano.microservicocadastrarclient.service.CadastreClient
 import com.luciano.microservicocadastrarclient.service.ViaCepService
@@ -12,28 +13,20 @@ import org.springframework.stereotype.Service
 @Service
 class CadastreClientImpl(
     private val clientRepository: ClientRepository,
-    private val viaCep: ViaCepService
+    private val viaCep: ViaCepService,
+    private val addressRepository: AddressRepository
 ) : CadastreClient {
 
     @Transactional
     override fun cadastreClient(client: ClientUser): ClientUser {
-        //val addressResponse = viaCep.getAddressByCep(client.cep)
-
-//        val address = AddressClient(
-//            cep = addressResponse.cep,
-//            road = addressResponse.logradouro,
-//            city = addressResponse.localidade,
-//            numberResidence = "",
-//            complement = addressResponse.complemento,
-//            uf = addressResponse.uf,
-//            client = client
-//        )
-
-        //client.addressClient = setOf(address)
-        client.addressClient = setOf(getAddress(client))
-
-        return clientRepository.save(client)
-
+        return clientRepository.save(client).apply {
+            if (addressClient == null) {
+                addressClient = mutableSetOf()
+            }
+            val address = getAddress(this)
+            addressClient.add(address)
+            addressRepository.save(address)
+        }
     }
 
     @Transactional
@@ -43,23 +36,15 @@ class CadastreClientImpl(
         }
     }
 
-//    override fun updateClientUser(idClient: Long, client: ClientUser): ClientUser {
-//        val existingClient = clientRepository.findById(idClient)
-//            .orElseThrow {
-//                NoSuchElementException("ClientUser not found with id: $idClient ")
-//            }
-//        val updateClient = existingClient.copy(
-//            cep = client.cep,
-//            phone = client.phone
-//        )
-//        return clientRepository.save(updateClient)
-//    }
+    override fun getAllListClients(): List<ClientUser> {
+        return clientRepository.findAll()
+    }
 
     @Transactional
     override fun updateClientUser(idClient: Long, client: ClientUser): ClientUser {
         val existingClient = clientRepository.findById(idClient)
             .orElseThrow {
-                NoSuchElementException("ClientUser not found with id: $idClient ")
+                Exception("ClientUser not found with id: $idClient ")
             }
 
         return existingClient.copy(
@@ -83,13 +68,12 @@ class CadastreClientImpl(
 
         return AddressClient(
             cep = addressResponse.cep,
-            road = addressResponse.logradouro,
+            road = addressResponse.logradouro ?: "Logradouro não informado",
             city = addressResponse.localidade,
-            numberResidence = "",
-            complement = addressResponse.complemento,
-            uf = addressResponse.uf,
+            numberResidence = client.numberResidence ?: "",
+            complement = addressResponse.complemento ?: "",
+            uf = addressResponse.uf ?: "UF não informada",
             client = client
         )
     }
-
 }

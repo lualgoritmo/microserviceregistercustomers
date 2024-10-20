@@ -8,20 +8,22 @@ data class AddressClientResponse(
     val logradouro: String,
     val complemento: String,
     val bairro: String,
-    val numberResidence: String,
     val localidade: String,
-    val uf: Char,
-    val client: ClientUser
+    val uf: String,
+    val numberResidence: String?=null,
+    val ibge: String,
+    val gia: String,
+    val ddd: String,
+    val siafi: String
 ) {
-    fun toEntity() = AddressClient(
+    fun toEntity(client: ClientUser) = AddressClient(
         cep = this.cep,
-        road = this.logradouro,
-        city = this.localidade,
-        numberResidence = this.numberResidence,
-        complement = this.complemento,
-        uf = this.uf,
-        client = this.client
+        road = this.logradouro ?: "",
+        city = this.localidade ?: "",
+        numberResidence = client.numberResidence?: "",
+        complement = this.complemento ?: "",
+        uf = this.uf ?: "",
+        client = client
     )
-
-
 }
+
