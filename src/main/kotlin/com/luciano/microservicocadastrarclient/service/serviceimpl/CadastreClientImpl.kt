@@ -1,5 +1,6 @@
 package com.luciano.microservicocadastrarclient.service.serviceimpl
 
+import com.luciano.microservicocadastrarclient.dto.UpdateClient
 import com.luciano.microservicocadastrarclient.model.AddressClient
 import com.luciano.microservicocadastrarclient.model.ClientUser
 import com.luciano.microservicocadastrarclient.repository.AddressRepository
@@ -32,25 +33,20 @@ class CadastreClientImpl(
     @Transactional
     override fun getClientById(idClient: Long): ClientUser {
         return clientRepository.findById(idClient).orElseThrow {
-            NoSuchElementException("ClientUser not found with id: $idClient ")
+            Exception("ClientUser not found with id: $idClient ")
         }
     }
-
     override fun getAllListClients(): List<ClientUser> {
         return clientRepository.findAll()
     }
-
     @Transactional
-    override fun updateClientUser(idClient: Long, client: ClientUser): ClientUser {
+    override fun updateClientUser(idClient: Long, client: UpdateClient): ClientUser {
         val existingClient = clientRepository.findById(idClient)
             .orElseThrow {
                 Exception("ClientUser not found with id: $idClient ")
             }
-
-        return existingClient.copy(
-            cep = client.cep,
-            phone = client.phone
-        ).also { clientRepository.save(it) }
+        val updatedClient = client.toEntity(existingClient)
+        return clientRepository.save(updatedClient)
     }
 
     @Transactional
@@ -76,4 +72,5 @@ class CadastreClientImpl(
             client = client
         )
     }
+
 }
