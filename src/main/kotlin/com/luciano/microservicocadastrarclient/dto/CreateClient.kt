@@ -14,9 +14,9 @@ data class CreateClientUser(
     val cep: String,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     val dateOfBirth: LocalDate,
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
-    val registrationDate: LocalDateTime = LocalDateTime.now(),
-    val numberResidence:String? = null,
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
+//    val registrationDate: LocalDateTime = LocalDateTime.now(),
+    //val numberResidence:String? = null,
     val phone: String,
     val rg: String,
     @Email
@@ -28,7 +28,7 @@ data class CreateClientUser(
         cpf = this.cpf,
         cep = this.cep,
         dateOfBirth = this.dateOfBirth,
-        registrationDate = this.registrationDate,
+        //registrationDate = this.registrationDate,
         phone = this.phone,
         rg = this.rg,
         email = this.email,
@@ -40,9 +40,9 @@ data class CreateClientUser(
             nameSurname = clientUser.nameSurname,
             cpf = clientUser.cpf,
             cep = clientUser.cep,
-            numberResidence = clientUser.numberResidence,
+            //numberResidence = clientUser.numberResidence,
             dateOfBirth = clientUser.dateOfBirth,
-            registrationDate = clientUser.registrationDate,
+            //registrationDate = clientUser.registrationDate,
             phone = clientUser.phone,
             rg = clientUser.rg,
             email = clientUser.email,
