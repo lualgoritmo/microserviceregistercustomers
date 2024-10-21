@@ -10,14 +10,13 @@ data class UpdateClient(
     @Email
     val email: String
 ) {
-    fun toEntity(existingClient: ClientUser): ClientUser {
-        return existingClient.copy(
-            cep = this.cep,
-            phone = this.phone,
-            numberResidence = this.numberResidence,
-            email = this.email
-        )
-    }
+    fun toEntity(existingClient: ClientUser): ClientUser = existingClient.copy(
+        cep = this.cep,
+        phone = this.phone,
+        numberResidence = this.numberResidence,
+        email = this.email
+    )
+
     companion object {
         fun fromEntity(clientUser: ClientUser) = UpdateClient(
             cep = clientUser.cep,

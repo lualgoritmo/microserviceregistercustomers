@@ -17,29 +17,14 @@ class ViaCepServiceImpl(
     override fun getAddressByCep(cep: String): AddressClientResponse {
         try {
             val webTarget: WebTarget = builder.target("https://viacep.com.br/ws/$cep/json/")
-            println("Requisitando endereço do CEP: $cep")
 
-            // Faz a requisição para a API ViaCEP
             val responseJson = webTarget.request(MediaType.APPLICATION_JSON)
                 .get(String::class.java)
 
-            // Log para verificar a resposta recebida
-            println("Resposta da API ViaCEP: $responseJson")
-
-            // Verifica se o retorno contém um erro (ex.: "erro": true)
-            if (responseJson.contains("\"erro\": true")) {
-                throw IllegalArgumentException("CEP inválido ou não encontrado: $cep")
-            }
-
-            // Tentativa de conversão usando Jackson
             val addressResponse = objectMapper.readValue(responseJson, AddressClientResponse::class.java)
-
-            // Verificar se o mapeamento está correto
-            println("Endereço mapeado: $addressResponse")
 
             return addressResponse
         } catch (e: Exception) {
-            println("Erro ao consultar o endereço via ViaCEP: ${e.message}")
             throw IllegalArgumentException("Falha ao consultar o CEP $cep: ${e.message}")
         }
     }

@@ -39,4 +39,8 @@ data class AddressClient(
     override fun hashCode(): Int {
         return idAddress?.hashCode() ?: 0
     }
+
+    override fun toString(): String {
+        return "AddressClient(idAddress=$idAddress, cep='$cep', road=$road, city='$city', numberResidence=$numberResidence, complement='$complement', uf='$uf')"
+    }
 }
