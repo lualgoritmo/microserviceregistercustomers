@@ -1,7 +1,7 @@
 package com.luciano.microservicocadastrarclient.service.serviceimpl
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.luciano.microservicocadastrarclient.input.controller.dto.AddressClientResponse
+import com.luciano.microservicocadastrarclient.service.dto.AddressClientResponse
 import com.luciano.microservicocadastrarclient.service.ViaCepService
 import jakarta.ws.rs.client.Client
 import jakarta.ws.rs.client.WebTarget

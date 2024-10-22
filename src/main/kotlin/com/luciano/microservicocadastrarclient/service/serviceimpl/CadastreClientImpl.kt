@@ -1,11 +1,10 @@
 package com.luciano.microservicocadastrarclient.service.serviceimpl
 
-import com.luciano.microservicocadastrarclient.input.controller.dto.UpdateClient
+import com.luciano.microservicocadastrarclient.input.dto.client.UpdateClient
 import com.luciano.microservicocadastrarclient.model.AddressClient
 import com.luciano.microservicocadastrarclient.model.ClientUser
 import com.luciano.microservicocadastrarclient.repository.AddressRepository
 import com.luciano.microservicocadastrarclient.repository.ClientRepository
-import com.luciano.microservicocadastrarclient.service.CadastreClient
 import com.luciano.microservicocadastrarclient.service.ViaCepService
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service

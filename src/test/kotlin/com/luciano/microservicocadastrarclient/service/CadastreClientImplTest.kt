@@ -5,7 +5,7 @@ import com.luciano.microservicocadastrarclient.datamodel.address
 import com.luciano.microservicocadastrarclient.datamodel.addressResponse
 import com.luciano.microservicocadastrarclient.datamodel.updateClient
 import com.luciano.microservicocadastrarclient.datamodel.returnClient
-import com.luciano.microservicocadastrarclient.input.controller.dto.UpdateClient
+import com.luciano.microservicocadastrarclient.input.dto.client.UpdateClient
 import com.luciano.microservicocadastrarclient.repository.AddressRepository
 import com.luciano.microservicocadastrarclient.repository.ClientRepository
 import com.luciano.microservicocadastrarclient.service.serviceimpl.CadastreClientImpl

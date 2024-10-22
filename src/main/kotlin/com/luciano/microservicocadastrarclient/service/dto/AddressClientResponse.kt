@@ -1,4 +1,4 @@
-package com.luciano.microservicocadastrarclient.input.controller.dto
+package com.luciano.microservicocadastrarclient.service.dto
 
 import com.luciano.microservicocadastrarclient.model.AddressClient
 import com.luciano.microservicocadastrarclient.model.ClientUser

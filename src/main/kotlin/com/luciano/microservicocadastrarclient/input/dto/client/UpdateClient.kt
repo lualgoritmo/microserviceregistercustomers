@@ -1,4 +1,4 @@
-package com.luciano.microservicocadastrarclient.input.controller.dto
+package com.luciano.microservicocadastrarclient.input.dto.client
 
 import com.luciano.microservicocadastrarclient.model.ClientUser
 import jakarta.validation.constraints.Email
