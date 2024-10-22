@@ -1,6 +1,7 @@
 package com.luciano.microservicocadastrarclient.datamodel
 
-import com.luciano.microservicocadastrarclient.dto.AddressClientResponse
+import com.luciano.microservicocadastrarclient.input.controller.dto.AddressClientResponse
+import com.luciano.microservicocadastrarclient.input.controller.dto.UpdateClient
 import com.luciano.microservicocadastrarclient.model.AddressClient
 import com.luciano.microservicocadastrarclient.model.ClientUser
 import java.time.LocalDate
@@ -15,6 +16,7 @@ fun returnClient(): ClientUser {
 val dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
 
 val client = ClientUser(
+    idClientUser = 1,
     nameSurname = "Terceiro Teste",
     cpf = "12345678901",
     cep = "17201110",
@@ -24,7 +26,7 @@ val client = ClientUser(
     phone = "1234567890",
     rg = "1234567",
     email = "johndoe@example.com",
-    addressClient = mutableSetOf() // Inicializa o conjunto de endereços
+    addressClient = mutableSetOf()
 )
 
 val address = AddressClient(
@@ -35,7 +37,7 @@ val address = AddressClient(
     numberResidence = "51",
     complement = "",
     uf = "SP",
-    client = client // Referência ao cliente
+    client = client
 )
 
 val addressResponse = AddressClientResponse(
@@ -50,4 +52,11 @@ val addressResponse = AddressClientResponse(
     gia = "12",
     ddd = "27",
     siafi = "00"
+)
+
+val updateClient = UpdateClient(
+    cep = "00000000",
+    phone = "149123456789",
+    numberResidence = "130",
+    email = "teste@teste.com"
 )

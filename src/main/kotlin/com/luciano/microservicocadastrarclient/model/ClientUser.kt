@@ -17,7 +17,7 @@ import java.time.LocalDateTime
 @Table(name = "client_user")
 data class ClientUser(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    val idClientUser: Long? = null,
     val nameSurname: String,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     val dateOfBirth: LocalDate,

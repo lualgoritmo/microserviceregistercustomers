@@ -1,8 +1,8 @@
-package com.luciano.microservicocadastrarclient.controller
+package com.luciano.microservicocadastrarclient.input.controller
 
-import com.luciano.microservicocadastrarclient.dto.CreateClientUser
-import com.luciano.microservicocadastrarclient.dto.ClientWithAddress
-import com.luciano.microservicocadastrarclient.dto.UpdateClient
+import com.luciano.microservicocadastrarclient.input.controller.dto.CreateClientUser
+import com.luciano.microservicocadastrarclient.input.controller.dto.ClientWithAddress
+import com.luciano.microservicocadastrarclient.input.controller.dto.UpdateClient
 import com.luciano.microservicocadastrarclient.service.CadastreClient
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity

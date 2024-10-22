@@ -1,7 +1,7 @@
 package com.luciano.microservicocadastrarclient.service.serviceimpl
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.luciano.microservicocadastrarclient.dto.AddressClientResponse
+import com.luciano.microservicocadastrarclient.input.controller.dto.AddressClientResponse
 import com.luciano.microservicocadastrarclient.service.ViaCepService
 import jakarta.ws.rs.client.Client
 import jakarta.ws.rs.client.WebTarget
@@ -13,7 +13,6 @@ class ViaCepServiceImpl(
     @Autowired private val builder: Client,
     @Autowired private val objectMapper: ObjectMapper
 ) : ViaCepService {
-
     override fun getAddressByCep(cep: String): AddressClientResponse {
         try {
             val webTarget: WebTarget = builder.target("https://viacep.com.br/ws/$cep/json/")
@@ -28,4 +27,5 @@ class ViaCepServiceImpl(
             throw IllegalArgumentException("Falha ao consultar o CEP $cep: ${e.message}")
         }
     }
+
 }

@@ -1,6 +1,6 @@
 package com.luciano.microservicocadastrarclient.service
 
-import com.luciano.microservicocadastrarclient.dto.UpdateClient
+import com.luciano.microservicocadastrarclient.input.controller.dto.UpdateClient
 import com.luciano.microservicocadastrarclient.model.ClientUser
 
 interface CadastreClient {

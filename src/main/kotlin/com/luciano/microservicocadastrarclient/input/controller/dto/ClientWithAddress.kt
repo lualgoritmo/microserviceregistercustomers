@@ -1,4 +1,4 @@
-package com.luciano.microservicocadastrarclient.dto
+package com.luciano.microservicocadastrarclient.input.controller.dto
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.luciano.microservicocadastrarclient.model.AddressClient
@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Email
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-data class CreateClientUser(
+data class ClientWithAddress(
     val nameSurname: String,
     val cpf: String,
     val cep: String,
@@ -15,7 +15,6 @@ data class CreateClientUser(
     val dateOfBirth: LocalDate,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     val registrationDate: LocalDateTime = LocalDateTime.now(),
-    val numberResidence: String?,
     val phone: String,
     val rg: String,
     @Email
@@ -28,18 +27,16 @@ data class CreateClientUser(
         cep = this.cep,
         dateOfBirth = this.dateOfBirth,
         phone = this.phone,
-        numberResidence = this.numberResidence,
         rg = this.rg,
         email = this.email,
         addressClient = mutableSetOf()
     )
 
     companion object {
-        fun fromEntity(clientUser: ClientUser) = CreateClientUser(
+        fun fromEntity(clientUser: ClientUser) = ClientWithAddress(
             nameSurname = clientUser.nameSurname,
             cpf = clientUser.cpf,
             cep = clientUser.cep,
-            numberResidence = clientUser.numberResidence,
             dateOfBirth = clientUser.dateOfBirth,
             phone = clientUser.phone,
             rg = clientUser.rg,
@@ -47,5 +44,4 @@ data class CreateClientUser(
             addressClient = clientUser.addressClient
         )
     }
-
 }

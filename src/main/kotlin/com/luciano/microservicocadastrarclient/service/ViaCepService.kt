@@ -1,6 +1,6 @@
 package com.luciano.microservicocadastrarclient.service
 
-import com.luciano.microservicocadastrarclient.dto.AddressClientResponse
+import com.luciano.microservicocadastrarclient.input.controller.dto.AddressClientResponse
 
 interface ViaCepService {
 
