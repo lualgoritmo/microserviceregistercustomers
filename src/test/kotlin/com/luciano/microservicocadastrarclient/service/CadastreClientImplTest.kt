@@ -1,6 +1,10 @@
 package com.luciano.microservicocadastrarclient.service
 
-import com.luciano.microservicocadastrarclient.datamodel.*
+import com.luciano.microservicocadastrarclient.datamodel.client
+import com.luciano.microservicocadastrarclient.datamodel.address
+import com.luciano.microservicocadastrarclient.datamodel.addressResponse
+import com.luciano.microservicocadastrarclient.datamodel.updateClient
+import com.luciano.microservicocadastrarclient.datamodel.returnClient
 import com.luciano.microservicocadastrarclient.input.controller.dto.UpdateClient
 import com.luciano.microservicocadastrarclient.repository.AddressRepository
 import com.luciano.microservicocadastrarclient.repository.ClientRepository
@@ -33,7 +37,6 @@ class CadastreClientImplTest {
 
     @Mock
     private lateinit var addressRepository: AddressRepository
-
     @Test
     fun `when cadastreclient was called, it should save the client`() {
 
@@ -52,7 +55,6 @@ class CadastreClientImplTest {
         verify(viaCepServiceImpl, times(1)).getAddressByCep(client.cep)
 
     }
-
     @Test
     fun `when getClientById was called, it shoud return the client`() {
 
@@ -66,7 +68,6 @@ class CadastreClientImplTest {
 
         verify(clientRepository, times(1)).findById(client.idClientUser!!)
     }
-
     @Test
     fun `When getClientById fails, it should return an exception`() {
 
@@ -102,7 +103,6 @@ class CadastreClientImplTest {
         verify(clientRepository, times(1)).save(updateClient.toEntity(existingClient))
 
     }
-
     @Test
     fun `when updateClientUsers fails shoud an return exception`() {
 
