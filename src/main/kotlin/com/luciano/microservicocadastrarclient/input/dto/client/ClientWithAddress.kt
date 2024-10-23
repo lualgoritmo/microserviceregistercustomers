@@ -21,27 +21,39 @@ data class ClientWithAddress(
     val email: String,
     var addressClient: Set<AddressClient> = emptySet()
 ) {
-    fun toEntity() = ClientUser(
-        nameSurname = this.nameSurname,
-        cpf = this.cpf,
-        cep = this.cep,
-        dateOfBirth = this.dateOfBirth,
-        phone = this.phone,
-        rg = this.rg,
-        email = this.email,
-        addressClient = mutableSetOf()
-    )
+    fun toEntity(): ClientUser {
+        val clientUser = ClientUser(
+            nameSurname = this.nameSurname,
+            cpf = this.cpf,
+            cep = this.cep,
+            dateOfBirth = this.dateOfBirth,
+            phone = this.phone,
+            rg = this.rg,
+            email = this.email,
+            addressClient = mutableSetOf()
+        )
+
+        val addresses = this.addressClient.map { address ->
+            address.copy(client = clientUser)
+        }.toMutableSet()
+
+        clientUser.addressClient = addresses
+
+        return clientUser
+    }
 
     companion object {
-        fun fromEntity(clientUser: ClientUser) = ClientWithAddress(
-            nameSurname = clientUser.nameSurname,
-            cpf = clientUser.cpf,
-            cep = clientUser.cep,
-            dateOfBirth = clientUser.dateOfBirth,
-            phone = clientUser.phone,
-            rg = clientUser.rg,
-            email = clientUser.email,
-            addressClient = clientUser.addressClient
-        )
+        fun fromEntity(clientUser: ClientUser): ClientWithAddress {
+            return ClientWithAddress(
+                nameSurname = clientUser.nameSurname,
+                cpf = clientUser.cpf,
+                cep = clientUser.cep,
+                dateOfBirth = clientUser.dateOfBirth,
+                phone = clientUser.phone,
+                rg = clientUser.rg,
+                email = clientUser.email,
+                addressClient = clientUser.addressClient
+            )
+        }
     }
 }

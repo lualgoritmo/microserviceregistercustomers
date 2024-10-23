@@ -28,7 +28,7 @@ data class AddressClient(
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_client")
     @JsonBackReference
-    val client: ClientUser
+    val client: ClientUser?
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

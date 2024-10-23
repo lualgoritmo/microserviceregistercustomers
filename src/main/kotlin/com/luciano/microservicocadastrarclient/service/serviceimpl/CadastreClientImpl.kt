@@ -19,14 +19,18 @@ class CadastreClientImpl(
 
     @Transactional
     override fun cadastreClient(client: ClientUser): ClientUser {
-        return clientRepository.save(client).apply {
-            if (addressClient == null) {
-                addressClient = mutableSetOf()
-            }
-            val address = getAddress(this)
-            addressClient.add(address)
-            addressRepository.save(address)
+
+        val savedClient = clientRepository.save(client)
+
+        if (savedClient.addressClient == null) {
+            savedClient.addressClient = mutableSetOf()
         }
+        val address = getAddress(savedClient)
+
+        savedClient.addressClient.add(address)
+
+        addressRepository.save(address)
+        return savedClient
     }
 
     @Transactional
@@ -35,7 +39,9 @@ class CadastreClientImpl(
             Exception("ClientUser not found with id: $idClient ")
         }
     }
+
     override fun getAllListClients(): List<ClientUser> = clientRepository.findAll()
+
     @Transactional
     override fun updateClientUser(idClient: Long, client: UpdateClient): ClientUser {
         val existingClient = clientRepository.findById(idClient)

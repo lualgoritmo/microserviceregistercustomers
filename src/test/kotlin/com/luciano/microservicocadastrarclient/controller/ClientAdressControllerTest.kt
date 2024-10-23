@@ -1,12 +1,17 @@
 package com.luciano.microservicocadastrarclient.controller
 
+import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.luciano.microservicocadastrarclient.datamodel.dateFormatter
 import com.luciano.microservicocadastrarclient.datamodel.returnClient
-import com.luciano.microservicocadastrarclient.datamodel.returnCreateClient
 import com.luciano.microservicocadastrarclient.input.controller.ClientAdressController
+import com.luciano.microservicocadastrarclient.input.dto.client.CreateClientUser
+import com.luciano.microservicocadastrarclient.model.AddressClient
+import com.luciano.microservicocadastrarclient.model.ClientUser
 import com.luciano.microservicocadastrarclient.service.serviceimpl.CadastreClientImpl
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.kotlin.any
 import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -15,7 +20,12 @@ import org.springframework.http.MediaType
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import java.time.LocalDate
+import java.time.LocalDateTime
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 @ExtendWith(SpringExtension::class)
 @WebMvcTest(ClientAdressController::class)
@@ -25,20 +35,82 @@ class ClientAdressControllerTest {
     private lateinit var clientUserService: CadastreClientImpl
 
     @Autowired
-    private lateinit var objectMappeer: ObjectMapper
+    private lateinit var objectMapper: ObjectMapper
 
     @Autowired
     private lateinit var mockMVC: MockMvc
 
     @Test
     fun `when POST cadastreClient is called, it should return created client`() {
+        val clientUserEntity = ClientUser(
+            idClientUser = 1,
+            nameSurname = "Terceiro Teste",
+            cpf = "12345678901",
+            cep = "17201110",
+            dateOfBirth = LocalDate.parse("01-10-1983", dateFormatter),
+            registrationDate = LocalDateTime.now(),
+            numberResidence = "51",
+            phone = "1234567890",
+            rg = "1234567",
+            email = "johndoe@example.com",
+            addressClient = mutableSetOf()
+        )
 
-        whenever(clientUserService.cadastreClient(returnClient())).thenReturn(returnClient())
+        val addressClient = AddressClient(
+            idAddress = null,
+            cep = "17201110",
+            road = "Rua Soldado Júlio Pinheiro de Araújo",
+            city = "Jaú",
+            numberResidence = "51",
+            complement = "",
+            uf = "SP",
+            client = clientUserEntity
+        )
 
-        mockMVC.perform(MockMvcRequestBuilders.post("/v1/clients/createclient")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMappeer.writeValueAsString(returnCreateClient)))
+        clientUserEntity.addressClient.add(addressClient)
+
+        val createClientUser = CreateClientUser(
+            nameSurname = "Terceiro Teste",
+            cpf = "12345678901",
+            cep = "17201110",
+            dateOfBirth = LocalDate.parse("01-10-1983", dateFormatter),
+            numberResidence = "51",
+            phone = "1234567890",
+            rg = "1234567",
+            email = "johndoe@example.com",
+            addressClient = setOf(addressClient)
+        )
+
+        whenever(clientUserService.cadastreClient(any())).thenReturn(clientUserEntity)
+
+        mockMVC.perform(
+            MockMvcRequestBuilders.post("/v1/clients/createclient")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(createClientUser))
+        )
             .andExpect(status().isCreated)
+            .andExpect(content().json(objectMapper.writeValueAsString(CreateClientUser.fromEntity(clientUserEntity))))
+    }
+
+    @Test
+    fun `when GET getAllListClients is called, it should return list clients`() {
+
+        whenever(clientUserService.getAllListClients()).thenReturn(listOf(returnClient(), returnClient()))
+
+        val response = mockMVC.perform(
+            MockMvcRequestBuilders.get("/v1/clients/allclients")
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+            .andExpect(status().isOk)
+            .andReturn()
+
+        val responseBody = response.response.contentAsString
+        val clientList: List<ClientUser> = objectMapper.readValue(responseBody,
+            object : TypeReference<List<ClientUser>>() {})
+
+        assertNotNull(clientList)
+        assertEquals(2, clientList.size)
+        assertEquals("Terceiro Teste", clientList[1].nameSurname)
     }
 
 }
