@@ -1,18 +1,19 @@
-package com.luciano.microservicocadastrarclient.service.serviceimpl
+package com.luciano.microservicocadastrarclient.output.gateway
 
 import com.luciano.microservicocadastrarclient.input.dto.client.UpdateClient
 import com.luciano.microservicocadastrarclient.model.AddressClient
 import com.luciano.microservicocadastrarclient.model.ClientUser
 import com.luciano.microservicocadastrarclient.repository.AddressRepository
-import com.luciano.microservicocadastrarclient.repository.ClientRepository
-import com.luciano.microservicocadastrarclient.service.ViaCepService
+import com.luciano.microservicocadastrarclient.repository.ClientUserRepository
+import com.luciano.microservicocadastrarclient.service.service.CadastreClient
+import com.luciano.microservicocadastrarclient.service.service.ViaCepService
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
 
 @Service
 class CadastreClientImpl(
-    private val clientRepository: ClientRepository,
+    private val clientRepository: ClientUserRepository,
     private val viaCep: ViaCepService,
     private val addressRepository: AddressRepository
 ) : CadastreClient {
@@ -25,7 +26,7 @@ class CadastreClientImpl(
         if (savedClient.addressClient == null) {
             savedClient.addressClient = mutableSetOf()
         }
-        val address = getAddress(savedClient)
+        val address = getAddressClient(savedClient)
 
         savedClient.addressClient.add(address)
 
@@ -62,7 +63,7 @@ class CadastreClientImpl(
         clientRepository.delete(existingClient)
     }
 
-    private fun getAddress(client: ClientUser): AddressClient {
+    public fun getAddressClient(client: ClientUser): AddressClient {
 
         val addressResponse = viaCep.getAddressByCep(client.cep)
 

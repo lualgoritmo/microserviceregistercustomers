@@ -3,7 +3,7 @@ package com.luciano.microservicocadastrarclient.input.controller
 import com.luciano.microservicocadastrarclient.input.dto.client.ClientWithAddress
 import com.luciano.microservicocadastrarclient.input.dto.client.CreateClientUser
 import com.luciano.microservicocadastrarclient.input.dto.client.UpdateClient
-import com.luciano.microservicocadastrarclient.service.serviceimpl.CadastreClient
+import com.luciano.microservicocadastrarclient.service.service.CadastreClient
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -29,9 +29,9 @@ class ClientAdressController(
     }
 
     @GetMapping("/{idClient}")
-    fun getByIdClient(@PathVariable("idClient") idClient: Long): ClientWithAddress {
+    fun getByIdClient(@PathVariable("idClient") idClient: Long): ResponseEntity<ClientWithAddress> {
         val client = clientUserService.getClientById(idClient)
-        return ClientWithAddress.fromEntity(client)
+        return ResponseEntity.status(HttpStatus.OK).body(ClientWithAddress.fromEntity(client))
     }
 
     @PutMapping("/update/{idClient}")

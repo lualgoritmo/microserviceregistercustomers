@@ -7,9 +7,9 @@ import com.luciano.microservicocadastrarclient.datamodel.updateClient
 import com.luciano.microservicocadastrarclient.datamodel.returnClient
 import com.luciano.microservicocadastrarclient.input.dto.client.UpdateClient
 import com.luciano.microservicocadastrarclient.repository.AddressRepository
-import com.luciano.microservicocadastrarclient.repository.ClientRepository
-import com.luciano.microservicocadastrarclient.service.serviceimpl.CadastreClientImpl
-import com.luciano.microservicocadastrarclient.service.serviceimpl.ViaCepServiceImpl
+import com.luciano.microservicocadastrarclient.repository.ClientUserRepository
+import com.luciano.microservicocadastrarclient.output.gateway.CadastreClientImpl
+import com.luciano.microservicocadastrarclient.output.gateway.ViaCepServiceImpl
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
@@ -30,7 +30,7 @@ class CadastreClientImplTest {
     private lateinit var cadastreClientImpl: CadastreClientImpl
 
     @Mock
-    private lateinit var clientRepository: ClientRepository
+    private lateinit var clientRepository: ClientUserRepository
 
     @Mock
     private lateinit var viaCepServiceImpl: ViaCepServiceImpl

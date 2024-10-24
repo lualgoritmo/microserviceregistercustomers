@@ -8,7 +8,8 @@ import com.luciano.microservicocadastrarclient.input.controller.ClientAdressCont
 import com.luciano.microservicocadastrarclient.input.dto.client.CreateClientUser
 import com.luciano.microservicocadastrarclient.model.AddressClient
 import com.luciano.microservicocadastrarclient.model.ClientUser
-import com.luciano.microservicocadastrarclient.service.serviceimpl.CadastreClientImpl
+import com.luciano.microservicocadastrarclient.output.gateway.CadastreClientImpl
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.kotlin.any
@@ -16,6 +17,7 @@ import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
@@ -40,6 +42,12 @@ class ClientAdressControllerTest {
     @Autowired
     private lateinit var mockMVC: MockMvc
 
+    private lateinit var clientController: ClientAdressController
+
+    @BeforeEach
+    fun setUp() {
+        clientController = ClientAdressController(clientUserService)
+    }
     @Test
     fun `when POST cadastreClient is called, it should return created client`() {
         val clientUserEntity = ClientUser(
@@ -100,8 +108,7 @@ class ClientAdressControllerTest {
         val response = mockMVC.perform(
             MockMvcRequestBuilders.get("/v1/clients/allclients")
                 .contentType(MediaType.APPLICATION_JSON)
-        )
-            .andExpect(status().isOk)
+        ).andExpect(status().isOk)
             .andReturn()
 
         val responseBody = response.response.contentAsString
@@ -111,6 +118,20 @@ class ClientAdressControllerTest {
         assertNotNull(clientList)
         assertEquals(2, clientList.size)
         assertEquals("Terceiro Teste", clientList[1].nameSurname)
+    }
+
+    @Test
+    fun `when GET getClientById is called, it should return one client`() {
+
+        whenever(clientUserService.getClientById(returnClient().idClientUser!!)).thenReturn(returnClient())
+
+        val response  = clientController.getByIdClient(returnClient().idClientUser!!)
+
+        val client = response.body
+
+        assertNotNull(client)
+        assertEquals(HttpStatus.OK, response.statusCode)
+        assertEquals("Terceiro Teste", client.nameSurname)
     }
 
 }
