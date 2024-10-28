@@ -8,6 +8,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 data class CreateClientUser(
+    val idClient: Long? = null,
     val nameSurname: String,
     val cpf: String,
     val cep: String,
@@ -23,6 +24,7 @@ data class CreateClientUser(
     var addressClient: Set<AddressClient> = emptySet()
 ) {
     fun toEntity() = ClientUser(
+        idClientUser = this.idClient,
         nameSurname = this.nameSurname,
         cpf = this.cpf,
         cep = this.cep,
@@ -36,6 +38,7 @@ data class CreateClientUser(
 
     companion object {
         fun fromEntity(clientUser: ClientUser) = CreateClientUser(
+            idClient = clientUser.idClientUser,
             nameSurname = clientUser.nameSurname,
             cpf = clientUser.cpf,
             cep = clientUser.cep,

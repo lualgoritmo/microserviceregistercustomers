@@ -23,7 +23,6 @@ class ViaCepServiceImpl(
     }
 
     override fun getAddressByCep(cep: String): AddressClientResponse {
-        //validateCep(cep)
 
         return try {
             val webTarget: WebTarget = builder.target("$VIA_CEP_URL$cep/json/")
@@ -36,22 +35,22 @@ class ViaCepServiceImpl(
         }
     }
 
-//    private fun validateCep(cep: String) {
-//        if (!cep.matches(Regex("^[0-9]{5}-?[0-9]{3}\$"))) {
-//            throw IllegalArgumentException("CEP inválido: $cep")
-//        }
-//    }
-    fun getAddressClient(client: ClientUser): AddressClient {
-        val addressResponse = this.getAddressByCep(client.cep)
+    fun getAddressClient(cep: String, client: ClientUser): AddressClient {
+        val addressResponse = this.getAddressByCep(cep)
+
+        if (addressResponse.cep.isNullOrEmpty() || addressResponse.logradouro.isNullOrEmpty()) {
+            throw IllegalArgumentException("Dados de endereço inválidos retornados para o CEP $cep")
+        }
 
         return AddressClient(
             cep = addressResponse.cep,
-            road = addressResponse.logradouro ?: "Logradouro não informado",
-            city = addressResponse.localidade,
-            numberResidence = client.numberResidence ?: "",
+            road = addressResponse.logradouro,
+            city = addressResponse.localidade ?: "Cidade não informada",
+           numberResidence = client.numberResidence ?: "",
             complement = addressResponse.complemento ?: "",
             uf = addressResponse.uf ?: "UF não informada",
             client = client
         )
     }
+
 }

@@ -8,6 +8,7 @@ import com.luciano.microservicocadastrarclient.repository.ClientUserRepository
 import com.luciano.microservicocadastrarclient.service.service.CadastreClient
 import com.luciano.microservicocadastrarclient.service.service.ViaCepService
 import jakarta.transaction.Transactional
+import org.hibernate.Hibernate
 import org.springframework.stereotype.Service
 
 
@@ -35,11 +36,12 @@ class CadastreClientImpl(
     }
 
     @Transactional
-    override fun getClientById(idClient: Long): ClientUser {
-        return clientRepository.findById(idClient).orElseThrow {
-            Exception("ClientUser not found with id: $idClient ")
-        }
+    override fun getClientById(idClient: Long): ClientUser = clientRepository.findById(idClient).orElseThrow {
+        IllegalArgumentException("Cliente com ID $idClient não encontrado.")
+    }.apply {
+        Hibernate.initialize(this.addressClient)
     }
+
 
     override fun getAllListClients(): List<ClientUser> = clientRepository.findAll()
 

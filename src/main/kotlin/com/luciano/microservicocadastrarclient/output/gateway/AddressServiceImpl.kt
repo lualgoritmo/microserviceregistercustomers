@@ -1,9 +1,11 @@
 package com.luciano.microservicocadastrarclient.output.gateway
 
+import com.luciano.microservicocadastrarclient.input.dto.address.CepAddress
 import com.luciano.microservicocadastrarclient.model.AddressClient
 import com.luciano.microservicocadastrarclient.repository.AddressRepository
 import com.luciano.microservicocadastrarclient.service.service.AddressService
 import com.luciano.microservicocadastrarclient.service.service.CadastreClient
+import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
 @Service
@@ -12,24 +14,22 @@ class AddressServiceImpl(
     private val addressRepository: AddressRepository,
     private val viaCepServiceImpl: ViaCepServiceImpl
 ) : AddressService {
+    @Transactional
+    override fun createAddress(idClient: Long, cepAddress: CepAddress): AddressClient {
 
-    override fun createAdress(idClient: Long, idAddress: Long): AddressClient {
         val clientUser = clientUserService.getClientById(idClient)
-            ?: throw IllegalArgumentException("Cliente com ID $idClient não encontrado.")
 
-        val existingAddress = addressRepository.findById(idAddress).orElse(null)
+        val newAddress = viaCepServiceImpl.getAddressClient(cepAddress.cep!!, clientUser)
 
-        val newAddress = viaCepServiceImpl.getAddressClient(clientUser)
-
-        if (existingAddress == null) {
-            clientUser.addressClient.add(newAddress)
-            addressRepository.save(newAddress)
-        } else {
-            throw IllegalArgumentException("Endereço com ID $idAddress já existe.")
+        if (clientUser.addressClient.any { it.cep == newAddress.cep }) {
+            throw IllegalArgumentException("Endereço duplicado.")
         }
 
-        return newAddress
+        val savedAddress = addressRepository.save(newAddress)
 
+        clientUser.addressClient.add(savedAddress)
+
+        return savedAddress
     }
     override fun getAllAddress(): List<AddressClient> = addressRepository.findAll()
     override fun getByIdAddress(idAddress: Long): AddressClient = addressRepository.findById(idAddress).orElseThrow {

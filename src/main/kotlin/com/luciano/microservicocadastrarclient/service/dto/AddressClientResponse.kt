@@ -4,7 +4,7 @@ import com.luciano.microservicocadastrarclient.model.AddressClient
 import com.luciano.microservicocadastrarclient.model.ClientUser
 
 data class AddressClientResponse(
-    val cep: String,
+    val cep: String? = null,
     val logradouro: String,
     val complemento: String,
     val bairro: String,
@@ -25,5 +25,6 @@ data class AddressClientResponse(
         uf = this.uf ?: "",
         client = client
     )
+
 }
 

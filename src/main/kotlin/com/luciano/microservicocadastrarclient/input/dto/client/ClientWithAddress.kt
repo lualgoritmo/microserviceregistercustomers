@@ -8,6 +8,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 data class ClientWithAddress(
+    val idClient: Long?= null,
     val nameSurname: String,
     val cpf: String,
     val cep: String,
@@ -23,6 +24,7 @@ data class ClientWithAddress(
 ) {
     fun toEntity(): ClientUser {
         val clientUser = ClientUser(
+            idClientUser = this.idClient,
             nameSurname = this.nameSurname,
             cpf = this.cpf,
             cep = this.cep,
@@ -45,6 +47,7 @@ data class ClientWithAddress(
     companion object {
         fun fromEntity(clientUser: ClientUser): ClientWithAddress {
             return ClientWithAddress(
+                idClient = clientUser.idClientUser,
                 nameSurname = clientUser.nameSurname,
                 cpf = clientUser.cpf,
                 cep = clientUser.cep,

@@ -5,12 +5,12 @@ import com.luciano.microservicocadastrarclient.model.ClientUser
 
 class CreateAddress(
     val idAddress: Long? = null,
-    val cep: String,
+    val cep: String?,
     val road: String? = null,
-    val city: String,
+    val city: String? = null,
     val numberResidence: String?,
-    val complement: String,
-    val uf: String,
+    val complement: String?=null,
+    val uf: String?=null,
     val client: ClientUser?
 ) {
     fun toEntity(): AddressClient = AddressClient(
@@ -27,7 +27,7 @@ class CreateAddress(
     companion object {
         fun fromEntity(addressClient: AddressClient): CreateAddress {
             return CreateAddress(
-                idAddress = null,
+                idAddress = addressClient.idAddress,
                 cep = addressClient.cep,
                 road = addressClient.road,
                 city = addressClient.city,
