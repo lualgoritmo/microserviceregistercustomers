@@ -35,7 +35,7 @@ class ViaCepServiceImpl(
         }
     }
 
-    fun getAddressClient(cep: String, client: ClientUser): AddressClient {
+    fun getAddressClient(cep: String, client: ClientUser, numberResidence:String): AddressClient {
         val addressResponse = this.getAddressByCep(cep)
 
         if (addressResponse.cep.isNullOrEmpty() || addressResponse.logradouro.isNullOrEmpty()) {
@@ -46,7 +46,7 @@ class ViaCepServiceImpl(
             cep = addressResponse.cep,
             road = addressResponse.logradouro,
             city = addressResponse.localidade ?: "Cidade não informada",
-           numberResidence = client.numberResidence ?: "",
+           numberResidence = numberResidence,
             complement = addressResponse.complemento ?: "",
             uf = addressResponse.uf ?: "UF não informada",
             client = client

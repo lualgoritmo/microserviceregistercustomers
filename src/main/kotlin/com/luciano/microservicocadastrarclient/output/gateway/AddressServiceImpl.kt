@@ -19,7 +19,8 @@ class AddressServiceImpl(
 
         val clientUser = clientUserService.getClientById(idClient)
 
-        val newAddress = viaCepServiceImpl.getAddressClient(cepAddress.cep!!, clientUser)
+        val newAddress = viaCepServiceImpl.getAddressClient(
+            cepAddress.cep!!, clientUser, cepAddress.numberResidence?:"")
 
         if (clientUser.addressClient.any { it.cep == newAddress.cep }) {
             throw IllegalArgumentException("Endereço duplicado.")

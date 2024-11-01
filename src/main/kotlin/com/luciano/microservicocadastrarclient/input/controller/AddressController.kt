@@ -17,9 +17,9 @@ class AddressController(
     fun createAddress(
         @PathVariable("idClient") idClient: Long,
         @RequestBody @Valid cepAddress: CepAddress
-    ): ResponseEntity<CepAddress> {
+    ): ResponseEntity<CreateAddress> {
         val address = addressService.createAddress(idClient, cepAddress)
-        return ResponseEntity.status(HttpStatus.CREATED).body(CepAddress.fromEntity(address))
+        return ResponseEntity.status(HttpStatus.CREATED).body(CreateAddress.fromEntity(address))
     }
 
 
