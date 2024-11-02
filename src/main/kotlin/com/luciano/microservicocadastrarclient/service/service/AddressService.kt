@@ -8,4 +8,5 @@ interface AddressService {
     fun getAllAddress(): List<AddressClient>
 
     fun getByIdAddress(idAddress: Long): AddressClient
+    fun updateAddressClient(idClient: Long, idAddress: Long, updateAddressClient: AddressClient): AddressClient
 }

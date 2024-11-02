@@ -46,7 +46,7 @@ class ViaCepServiceImpl(
             cep = addressResponse.cep,
             road = addressResponse.logradouro,
             city = addressResponse.localidade ?: "Cidade não informada",
-           numberResidence = numberResidence,
+            numberResidence = numberResidence,
             complement = addressResponse.complemento ?: "",
             uf = addressResponse.uf ?: "UF não informada",
             client = client

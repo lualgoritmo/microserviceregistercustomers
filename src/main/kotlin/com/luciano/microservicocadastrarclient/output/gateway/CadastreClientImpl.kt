@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service
 @Service
 class CadastreClientImpl(
     private val clientRepository: ClientUserRepository,
-    private val viaCep: ViaCepService,
+    private val viaCep: ViaCepServiceImpl,
     private val addressRepository: AddressRepository
 ) : CadastreClient {
 
@@ -27,7 +27,8 @@ class CadastreClientImpl(
         if (savedClient.addressClient == null) {
             savedClient.addressClient = mutableSetOf()
         }
-        val address = getAddressClient(savedClient)
+        //val address = getAddressClient(savedClient)
+        val address = viaCep.getAddressClient(client.cep, savedClient, client.numberResidence?:"")
 
         savedClient.addressClient.add(address)
 
@@ -65,19 +66,19 @@ class CadastreClientImpl(
         clientRepository.delete(existingClient)
     }
 
-    public fun getAddressClient(client: ClientUser): AddressClient {
-
-        val addressResponse = viaCep.getAddressByCep(client.cep)
-
-        return AddressClient(
-            cep = addressResponse.cep,
-            road = addressResponse.logradouro ?: "Logradouro não informado",
-            city = addressResponse.localidade,
-            numberResidence = client.numberResidence ?: "",
-            complement = addressResponse.complemento ?: "",
-            uf = addressResponse.uf ?: "UF não informada",
-            client = client
-        )
-    }
+//    public fun getAddressClient(client: ClientUser): AddressClient {
+//
+//        val addressResponse = viaCep.getAddressByCep(client.cep)
+//
+//        return AddressClient(
+//            cep = addressResponse.cep,
+//            road = addressResponse.logradouro ?: "Logradouro não informado",
+//            city = addressResponse.localidade,
+//            numberResidence = client.numberResidence ?: "",
+//            complement = addressResponse.complemento ?: "",
+//            uf = addressResponse.uf ?: "UF não informada",
+//            client = client
+//        )
+//    }
 
 }
