@@ -4,7 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.luciano.microservicocadastrarclient.datamodel.dateFormatter
 import com.luciano.microservicocadastrarclient.datamodel.returnClient
-import com.luciano.microservicocadastrarclient.input.controller.ClientAdressController
+import com.luciano.microservicocadastrarclient.datamodel.returnClientCreate
+import com.luciano.microservicocadastrarclient.input.controller.ClientController
 import com.luciano.microservicocadastrarclient.input.dto.client.CreateClientUser
 import com.luciano.microservicocadastrarclient.model.AddressClient
 import com.luciano.microservicocadastrarclient.model.ClientUser
@@ -26,12 +27,13 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.util.UUID
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 @ExtendWith(SpringExtension::class)
-@WebMvcTest(ClientAdressController::class)
-class ClientAdressControllerTest {
+@WebMvcTest(ClientController::class)
+class ClientControllerTest {
 
     @MockBean
     private lateinit var clientUserService: CadastreClientImpl
@@ -42,16 +44,16 @@ class ClientAdressControllerTest {
     @Autowired
     private lateinit var mockMVC: MockMvc
 
-    private lateinit var clientController: ClientAdressController
+    private lateinit var clientController: ClientController
 
     @BeforeEach
     fun setUp() {
-        clientController = ClientAdressController(clientUserService)
+        clientController = ClientController(clientUserService)
     }
     @Test
     fun `when POST cadastreClient is called, it should return created client`() {
         val clientUserEntity = ClientUser(
-            idClientUser = 1,
+            idClientUser = UUID.randomUUID(),
             nameSurname = "Terceiro Teste",
             cpf = "12345678901",
             cep = "17201110",
@@ -92,7 +94,7 @@ class ClientAdressControllerTest {
         whenever(clientUserService.cadastreClient(any())).thenReturn(clientUserEntity)
 
         mockMVC.perform(
-            MockMvcRequestBuilders.post("/v1/clients/createclient")
+            MockMvcRequestBuilders.post("/v1/clients/create-client")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(createClientUser))
         )
@@ -123,9 +125,9 @@ class ClientAdressControllerTest {
     @Test
     fun `when GET getClientById is called, it should return one client`() {
 
-        whenever(clientUserService.getClientById(returnClient().idClientUser!!)).thenReturn(returnClient())
+        whenever(clientUserService.getClientById(any())).thenReturn(returnClientCreate())
 
-        val response  = clientController.getByIdClient(returnClient().idClientUser!!)
+        val response  = clientController.getByIdClient(returnClientCreate().idClientUser!!)
 
         val client = response.body
 

@@ -2,9 +2,10 @@ package com.luciano.microservicocadastrarclient.input.dto.address
 
 import com.luciano.microservicocadastrarclient.model.AddressClient
 import com.luciano.microservicocadastrarclient.model.ClientUser
+import java.util.UUID
 
 class CepAddress(
-    val idAddress: Long? = null,
+    val idAddress: UUID? = null,
     val cep: String?,
     val numberResidence: String?,
     val client: ClientUser?

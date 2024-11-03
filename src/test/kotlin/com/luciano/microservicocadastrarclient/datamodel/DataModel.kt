@@ -1,23 +1,29 @@
 package com.luciano.microservicocadastrarclient.datamodel
 
-import com.luciano.microservicocadastrarclient.input.dto.client.CreateClientUser
-import com.luciano.microservicocadastrarclient.service.dto.AddressClientResponse
 import com.luciano.microservicocadastrarclient.input.dto.client.UpdateClient
 import com.luciano.microservicocadastrarclient.model.AddressClient
 import com.luciano.microservicocadastrarclient.model.ClientUser
+import com.luciano.microservicocadastrarclient.service.dto.AddressClientResponse
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
-fun returnClient(): ClientUser {
+fun returnClientCreate(): ClientUser {
     client.addressClient.add(address)
     return client
 }
 
+fun returnClient(): ClientUser {
+    val newClient = client.copy(addressClient = mutableSetOf(address.copy()))
+    return newClient
+}
+
+
 val dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
 
 val client = ClientUser(
-    idClientUser = 1,
+    idClientUser = UUID.randomUUID(),
     nameSurname = "Terceiro Teste",
     cpf = "12345678901",
     cep = "17201110",

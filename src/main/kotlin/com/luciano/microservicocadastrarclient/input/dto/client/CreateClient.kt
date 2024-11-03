@@ -6,9 +6,10 @@ import com.luciano.microservicocadastrarclient.model.ClientUser
 import jakarta.validation.constraints.Email
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.util.UUID
 
 data class CreateClientUser(
-    val idClient: Long? = null,
+    val idClient: UUID? = null,
     val nameSurname: String,
     val cpf: String,
     val cep: String,

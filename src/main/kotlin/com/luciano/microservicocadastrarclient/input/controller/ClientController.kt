@@ -8,13 +8,14 @@ import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.util.UUID
 
 @RestController
 @RequestMapping("/v1/clients")
-class ClientAdressController(
+class ClientController(
     private val clientUserService: CadastreClient
 ) {
-    @PostMapping("/createclient")
+    @PostMapping("/create-client")
     fun getAllListClients(
         @RequestBody @Valid clientUser: CreateClientUser
     ): ResponseEntity<CreateClientUser> {
@@ -29,14 +30,14 @@ class ClientAdressController(
     }
 
     @GetMapping("/{idClient}")
-    fun getByIdClient(@PathVariable("idClient") idClient: Long): ResponseEntity<ClientWithAddress> {
+    fun getByIdClient(@PathVariable("idClient") idClient: UUID): ResponseEntity<ClientWithAddress> {
         val client = clientUserService.getClientById(idClient)
         return ResponseEntity.status(HttpStatus.OK).body(ClientWithAddress.fromEntity(client))
     }
 
     @PutMapping("/update/{idClient}")
     fun updateClient(
-        @PathVariable("idClient") idClient: Long,
+        @PathVariable("idClient") idClient: UUID,
         @RequestBody @Valid client: UpdateClient
     ): ResponseEntity<UpdateClient> {
         val updateClient = clientUserService.updateClientUser(idClient, client)

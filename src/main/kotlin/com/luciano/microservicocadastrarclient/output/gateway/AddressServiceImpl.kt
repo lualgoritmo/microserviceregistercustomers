@@ -7,6 +7,8 @@ import com.luciano.microservicocadastrarclient.service.service.AddressService
 import com.luciano.microservicocadastrarclient.service.service.CadastreClient
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
+import java.util.UUID
+
 @Service
 class AddressServiceImpl(
     private val clientUserService: CadastreClient,
@@ -14,7 +16,7 @@ class AddressServiceImpl(
     private val viaCepServiceImpl: ViaCepServiceImpl
 ) : AddressService {
     @Transactional
-    override fun createAddress(idClient: Long, cepAddress: CepAddress): AddressClient {
+    override fun createAddress(idClient: UUID, cepAddress: CepAddress): AddressClient {
 
         val clientUser = clientUserService.getClientById(idClient)
 
@@ -34,12 +36,12 @@ class AddressServiceImpl(
     }
 
     override fun getAllAddress(): List<AddressClient> = addressRepository.findAll()
-    override fun getByIdAddress(idAddress: Long): AddressClient = addressRepository.findById(idAddress).orElseThrow {
+    override fun getByIdAddress(idAddress: UUID): AddressClient = addressRepository.findById(idAddress).orElseThrow {
         Exception("Esse cliente não foi encontrado: $idAddress ")
 
     }
 
-    override fun updateAddressClient(idClient: Long, idAddress: Long, updateAddressClient: AddressClient): AddressClient {
+    override fun updateAddressClient(idClient: UUID, idAddress: UUID, updateAddressClient: AddressClient): AddressClient {
         val existingClient = clientUserService.getClientById(idClient)
 
         val existingAddress = addressRepository.findById(idAddress).orElseThrow {

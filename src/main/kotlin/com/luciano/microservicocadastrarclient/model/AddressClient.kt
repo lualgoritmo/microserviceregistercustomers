@@ -10,14 +10,15 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.FetchType
+import java.util.UUID
 
 @Entity
 @Table(name = "tb_addressClient")
 @JsonIgnoreProperties("client")
 data class AddressClient(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val idAddress: Long? = null,
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    val idAddress: UUID? = null,
     val cep: String?=null,
     val road: String? = null,
     val city: String?,

@@ -12,12 +12,13 @@ import jakarta.persistence.OneToMany
 import jakarta.validation.constraints.Email
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.util.*
 
 @Entity
 @Table(name = "client_user")
 data class ClientUser(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val idClientUser: Long? = null,
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    val idClientUser: UUID? = null,
     val nameSurname: String,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     val dateOfBirth: LocalDate,
