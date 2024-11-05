@@ -28,8 +28,8 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-	testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+	//testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+	//testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	implementation("jakarta.ws.rs:jakarta.ws.rs-api:3.0.0")
 	implementation("org.postgresql:postgresql:42.6.0")
@@ -37,6 +37,10 @@ dependencies {
 	implementation("org.glassfish.jersey.core:jersey-client:3.1.2")
 	implementation("org.glassfish.jersey.inject:jersey-hk2:3.1.2")
 	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.mockito:mockito-core:5.3.0")
+	testImplementation("org.mockito.kotlin:mockito-kotlin:5.0.0")
 
 }
 

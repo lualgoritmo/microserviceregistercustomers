@@ -20,20 +20,31 @@ class CadastreClientImpl(
 
     @Transactional
     override fun cadastreClient(client: ClientUser): ClientUser {
-
+        // Salva o cliente e verifica se o retorno é nulo
         val savedClient = clientRepository.save(client)
+        requireNotNull(savedClient) { "Failed to save the client" }
 
+        // Inicializa addressClient se for nulo
         if (savedClient.addressClient == null) {
             savedClient.addressClient = mutableSetOf()
         }
-        //val address = getAddressClient(savedClient)
-        val address = viaCep.getAddressClient(client.cep, savedClient, client.numberResidence?:"")
 
+        // Recupera o endereço usando o serviço ViaCep
+        val address = viaCep.getAddressClient(
+            cep = client.cep,
+            client = savedClient,
+            numberResidence = client.numberResidence ?: ""
+        ) ?: throw IllegalArgumentException("Failed to retrieve address for CEP: ${client.cep}")
+
+        // Adiciona o endereço ao cliente
         savedClient.addressClient.add(address)
 
+        // Salva o endereço no repositório
         addressRepository.save(address)
+
         return savedClient
     }
+
 
     @Transactional
     override fun getClientById(idClient: UUID): ClientUser = clientRepository.findById(idClient).orElseThrow {
@@ -65,19 +76,5 @@ class CadastreClientImpl(
         clientRepository.delete(existingClient)
     }
 
-//    public fun getAddressClient(client: ClientUser): AddressClient {
-//
-//        val addressResponse = viaCep.getAddressByCep(client.cep)
-//
-//        return AddressClient(
-//            cep = addressResponse.cep,
-//            road = addressResponse.logradouro ?: "Logradouro não informado",
-//            city = addressResponse.localidade,
-//            numberResidence = client.numberResidence ?: "",
-//            complement = addressResponse.complemento ?: "",
-//            uf = addressResponse.uf ?: "UF não informada",
-//            client = client
-//        )
-//    }
-
 }
+

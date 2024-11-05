@@ -27,22 +27,21 @@ class AddressController(
         @RequestBody @Valid cepAddress: CepAddress
     ): ResponseEntity<CreateAddress> {
         val address = addressService.createAddress(idClient, cepAddress)
-        return ResponseEntity.status(HttpStatus.CREATED).body(CreateAddress.fromEntity(address))
+        return ResponseEntity.status(HttpStatus.CREATED).body(CreateAddress.fromEntity(addressClient = address))
     }
 
     @GetMapping("/alladdress")
     fun getAllAddress(): ResponseEntity<List<CreateAddress>> {
         return ResponseEntity.status(HttpStatus.OK).body(addressService.getAllAddress().map {
-            CreateAddress.fromEntity(it)
+            CreateAddress.fromEntity(addressClient = it)
         })
     }
 
     @GetMapping("/{idAdress}")
     fun getByIdAddress(@PathVariable idAddress: UUID): ResponseEntity<CreateAddress> {
         val address = addressService.getByIdAddress(idAddress)
-        return ResponseEntity.status(HttpStatus.OK).body(CreateAddress.fromEntity(address))
+        return ResponseEntity.status(HttpStatus.OK).body(CreateAddress.fromEntity(addressClient = address))
     }
-
     @PutMapping("/update-address/{idClient}/{idAddress}")
     fun updateAddressClient(
         @PathVariable idClient: UUID,
@@ -54,10 +53,10 @@ class AddressController(
         val updateAddress = updateAddress.toEntity(existingAddress = existingAddress)
 
         val savedAddress = addressService.updateAddressClient(
-            idClient, idAddress, updateAddress
+            idClient = idClient, idAddress = idAddress, updateAddressClient = updateAddress
         )
 
-        return ResponseEntity.status(HttpStatus.OK).body(UpdateAddressClient.fromEntity(savedAddress))
+        return ResponseEntity.status(HttpStatus.CREATED).body(UpdateAddressClient.fromEntity(savedAddress))
     }
 
 }

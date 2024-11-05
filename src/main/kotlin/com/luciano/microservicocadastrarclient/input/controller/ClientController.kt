@@ -16,7 +16,7 @@ class ClientController(
     private val clientUserService: CadastreClient
 ) {
     @PostMapping("/create-client")
-    fun getAllListClients(
+    fun createdClient(
         @RequestBody @Valid clientUser: CreateClientUser
     ): ResponseEntity<CreateClientUser> {
         val client =

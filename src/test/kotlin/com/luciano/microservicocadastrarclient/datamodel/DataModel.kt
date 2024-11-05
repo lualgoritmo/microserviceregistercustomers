@@ -1,5 +1,6 @@
 package com.luciano.microservicocadastrarclient.datamodel
 
+import com.luciano.microservicocadastrarclient.input.dto.address.CepAddress
 import com.luciano.microservicocadastrarclient.input.dto.client.UpdateClient
 import com.luciano.microservicocadastrarclient.model.AddressClient
 import com.luciano.microservicocadastrarclient.model.ClientUser
@@ -66,4 +67,11 @@ val updateClient = UpdateClient(
     phone = "149123456789",
     numberResidence = "130",
     email = "teste@teste.com"
+)
+
+val cepAddress = CepAddress(
+     idAddress = UUID.randomUUID(),
+     cep = "17208531",
+     numberResidence = "51",
+     client = client
 )

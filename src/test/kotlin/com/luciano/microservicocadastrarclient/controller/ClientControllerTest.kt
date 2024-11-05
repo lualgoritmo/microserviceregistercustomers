@@ -10,6 +10,8 @@ import com.luciano.microservicocadastrarclient.input.dto.client.CreateClientUser
 import com.luciano.microservicocadastrarclient.model.AddressClient
 import com.luciano.microservicocadastrarclient.model.ClientUser
 import com.luciano.microservicocadastrarclient.output.gateway.CadastreClientImpl
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -27,9 +29,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.UUID
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
+import java.util.*
 
 @ExtendWith(SpringExtension::class)
 @WebMvcTest(ClientController::class)
@@ -45,7 +45,6 @@ class ClientControllerTest {
     private lateinit var mockMVC: MockMvc
 
     private lateinit var clientController: ClientController
-
     @BeforeEach
     fun setUp() {
         clientController = ClientController(clientUserService)
@@ -133,7 +132,7 @@ class ClientControllerTest {
 
         assertNotNull(client)
         assertEquals(HttpStatus.OK, response.statusCode)
-        assertEquals("Terceiro Teste", client.nameSurname)
+        assertEquals("Terceiro Teste", client?.nameSurname)
     }
 
 }
