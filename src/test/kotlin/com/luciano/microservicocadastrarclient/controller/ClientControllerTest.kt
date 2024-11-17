@@ -12,7 +12,9 @@ import com.luciano.microservicocadastrarclient.input.dto.client.UpdateClient
 import com.luciano.microservicocadastrarclient.model.AddressClient
 import com.luciano.microservicocadastrarclient.model.ClientUser
 import com.luciano.microservicocadastrarclient.output.gateway.CadastreClientImpl
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -30,7 +32,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.*
+import java.util.UUID
 
 @ExtendWith(SpringExtension::class)
 @WebMvcTest(ClientController::class)
@@ -51,7 +53,6 @@ class ClientControllerTest {
     fun setUp() {
         clientController = ClientController(clientUserService)
     }
-
     @Test
     fun `when POST cadastreClient is called, it should return created client`() {
         val clientUserEntity = ClientUser(
@@ -103,7 +104,6 @@ class ClientControllerTest {
             .andExpect(status().isCreated)
             .andExpect(content().json(objectMapper.writeValueAsString(CreateClientUser.fromEntity(clientUserEntity))))
     }
-
     @Test
     fun `when GET getAllListClients is called, it should return list clients`() {
 
@@ -123,7 +123,6 @@ class ClientControllerTest {
         assertEquals(2, clientList.size)
         assertEquals("Terceiro Teste", clientList[1].nameSurname)
     }
-
     @Test
     fun `when GET getClientById is called, it should return one client`() {
 
@@ -137,7 +136,6 @@ class ClientControllerTest {
         assertEquals(HttpStatus.OK, response.statusCode)
         assertEquals("Terceiro Teste", client?.nameSurname)
     }
-
     @Test
     fun `when updateClientUser is called it shoud return a client updated`() {
         val existingClient = client
