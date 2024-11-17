@@ -2,16 +2,17 @@ package com.luciano.microservicocadastrarclient.controller
 
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.luciano.microservicocadastrarclient.datamodel.client
 import com.luciano.microservicocadastrarclient.datamodel.dateFormatter
 import com.luciano.microservicocadastrarclient.datamodel.returnClient
 import com.luciano.microservicocadastrarclient.datamodel.returnClientCreate
 import com.luciano.microservicocadastrarclient.input.controller.ClientController
 import com.luciano.microservicocadastrarclient.input.dto.client.CreateClientUser
+import com.luciano.microservicocadastrarclient.input.dto.client.UpdateClient
 import com.luciano.microservicocadastrarclient.model.AddressClient
 import com.luciano.microservicocadastrarclient.model.ClientUser
 import com.luciano.microservicocadastrarclient.output.gateway.CadastreClientImpl
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -45,10 +46,12 @@ class ClientControllerTest {
     private lateinit var mockMVC: MockMvc
 
     private lateinit var clientController: ClientController
+
     @BeforeEach
     fun setUp() {
         clientController = ClientController(clientUserService)
     }
+
     @Test
     fun `when POST cadastreClient is called, it should return created client`() {
         val clientUserEntity = ClientUser(
@@ -126,7 +129,7 @@ class ClientControllerTest {
 
         whenever(clientUserService.getClientById(any())).thenReturn(returnClientCreate())
 
-        val response  = clientController.getByIdClient(returnClientCreate().idClientUser!!)
+        val response = clientController.getByIdClient(returnClientCreate().idClientUser!!)
 
         val client = response.body
 
@@ -135,4 +138,26 @@ class ClientControllerTest {
         assertEquals("Terceiro Teste", client?.nameSurname)
     }
 
+    @Test
+    fun `when updateClientUser is called it shoud return a client updated`() {
+        val existingClient = client
+
+        val updateClient = existingClient.copy(
+            idClientUser = existingClient.idClientUser,
+            cep = "123456789",
+            numberResidence = "123",
+            email = "novoemail@teste.com"
+        )
+
+        whenever(clientUserService.updateClientUser(idClient = any(), client = any())).thenReturn(client)
+
+        val response = clientController.updateClient(
+            idClient = existingClient.idClientUser!!,
+            client = UpdateClient.fromEntity(updateClient)
+        )
+
+        assertNotNull(response.body)
+        assertEquals(HttpStatus.OK, response.statusCode)
+        assertNotEquals(updateClient.cep, response.body?.cep)
+    }
 }
