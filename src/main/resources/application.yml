@@ -1,4 +1,5 @@
 spring:
+  name: microservicoecadastrarclient
   datasource:
     url: jdbc:postgresql://localhost:5432/client
     username: postgres
@@ -17,3 +18,11 @@ spring:
   boot:
     run:
       jvmArguments: --add-opens=java.base/java.time=ALL-UNNAMED
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: group-1
+      auto-offset: earliest
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-deserializer-org: org.apache.kafka.common.serialization.StringDeserializer
+

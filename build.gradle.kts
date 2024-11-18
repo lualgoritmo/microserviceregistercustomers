@@ -42,6 +42,10 @@ dependencies {
 	testImplementation("org.mockito:mockito-core:5.3.0")
 	testImplementation("org.mockito.kotlin:mockito-kotlin:5.0.0")
 
+	//Kafka
+	implementation("org.springframework.kafka:spring-kafka")
+	implementation("org.apache.kafka:kafka-clients")
+
 }
 
 kotlin {
