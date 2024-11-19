@@ -17,11 +17,9 @@ class ViaCepServiceImpl(
     @Autowired private val builder: Client,
     @Autowired private val objectMapper: ObjectMapper
 ) : ViaCepService {
-
     companion object {
         private const val VIA_CEP_URL = "https://viacep.com.br/ws/"
     }
-
     override fun getAddressByCep(cep: String): AddressClientResponse {
 
         return try {

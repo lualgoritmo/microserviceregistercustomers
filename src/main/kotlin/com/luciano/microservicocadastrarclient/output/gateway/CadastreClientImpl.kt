@@ -20,31 +20,26 @@ class CadastreClientImpl(
 
     @Transactional
     override fun cadastreClient(client: ClientUser): ClientUser {
-        // Salva o cliente e verifica se o retorno é nulo
+
         val savedClient = clientRepository.save(client)
         requireNotNull(savedClient) { "Failed to save the client" }
 
-        // Inicializa addressClient se for nulo
         if (savedClient.addressClient == null) {
             savedClient.addressClient = mutableSetOf()
         }
 
-        // Recupera o endereço usando o serviço ViaCep
         val address = viaCep.getAddressClient(
             cep = client.cep,
             client = savedClient,
             numberResidence = client.numberResidence ?: ""
-        ) ?: throw IllegalArgumentException("Failed to retrieve address for CEP: ${client.cep}")
+        ) ?: throw IllegalArgumentException("O cep não existe: ${client.cep}")
 
-        // Adiciona o endereço ao cliente
         savedClient.addressClient.add(address)
 
-        // Salva o endereço no repositório
         addressRepository.save(address)
 
         return savedClient
     }
-
 
     @Transactional
     override fun getClientById(idClient: UUID): ClientUser = clientRepository.findById(idClient).orElseThrow {
@@ -53,9 +48,7 @@ class CadastreClientImpl(
         Hibernate.initialize(this.addressClient)
     }
 
-
     override fun getAllListClients(): List<ClientUser> = clientRepository.findAll()
-
     @Transactional
     override fun updateClientUser(idClient: UUID, client: UpdateClient): ClientUser {
         val existingClient = clientRepository.findById(idClient)

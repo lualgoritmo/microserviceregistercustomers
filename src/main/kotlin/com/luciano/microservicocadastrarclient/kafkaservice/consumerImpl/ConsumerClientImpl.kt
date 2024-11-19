@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service
 @Service
 class ConsumerClientImpl : ConsumerClient {
 
-    @KafkaListener(topics = ["create-client-topic"], groupId = "group-1")
+    @KafkaListener(topics = ["client-create-topic"], groupId = "client-service-group")
     override fun createClient(message: String) {
-        TODO("Not yet implemented")
+        println("Cliente criado no outro serviço com sucesso:$message")
     }
 
 }

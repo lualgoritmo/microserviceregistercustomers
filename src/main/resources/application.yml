@@ -1,7 +1,9 @@
+server:
+  port: 8081
 spring:
   name: microservicoecadastrarclient
   datasource:
-    url: jdbc:postgresql://localhost:5432/client
+    url: jdbc:postgresql://localhost:5433/client
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -19,9 +21,11 @@ spring:
     run:
       jvmArguments: --add-opens=java.base/java.time=ALL-UNNAMED
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: 127.0.0.1:9092
     consumer:
-      group-id: group-1
+      topics:
+        - client-create-topic
+      group-id: client-service-group
       auto-offset: earliest
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-deserializer-org: org.apache.kafka.common.serialization.StringDeserializer
