@@ -46,6 +46,9 @@ dependencies {
 	implementation("org.springframework.kafka:spring-kafka")
 	implementation("org.apache.kafka:kafka-clients")
 
+	//Flayway
+	//implementation("org.flywaydb:flyway-core:9.22.0")
+
 }
 
 kotlin {

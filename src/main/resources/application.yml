@@ -20,13 +20,18 @@ spring:
   boot:
     run:
       jvmArguments: --add-opens=java.base/java.time=ALL-UNNAMED
-  kafka:
-    bootstrap-servers: 127.0.0.1:9092
-    consumer:
-      topics:
-        - client-create-topic
-      group-id: client-service-group
-      auto-offset: earliest
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-deserializer-org: org.apache.kafka.common.serialization.StringDeserializer
+#  kafka:
+#    bootstrap-servers: 127.0.0.1:9092
+#    consumer:
+#      topics:
+#        - client-create-topic
+#      group-id: client-service-group
+#      auto-offset: earliest
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-deserializer-org: org.apache.kafka.common.serialization.StringDeserializer
 
+  flyway:
+    enabled: true
+    database-type: postgresql
+    locations: classpath:db/migration
+    ignore-unsupported: true
