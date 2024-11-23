@@ -15,7 +15,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 @Entity
-@Table(name = "client_user")
+@Table(name = "tb_client_user")
 data class ClientUser(
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     val idClientUser: UUID? = null,
