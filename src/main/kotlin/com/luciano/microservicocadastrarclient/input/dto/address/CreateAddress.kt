@@ -22,7 +22,8 @@ class CreateAddress(
         numberResidence = this.numberResidence,
         complement = this.complement,
         uf = this.uf,
-        client = this.client
+        client = this.client,
+        null
     )
 
     companion object {

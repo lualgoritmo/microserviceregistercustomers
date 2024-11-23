@@ -12,14 +12,14 @@ import java.time.LocalDateTime
 import java.util.UUID
 
 @Entity
-@Table(name = "tb_ServiceToDo")
+@Table(name = "tb_service")
 data class ServiceToDo(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private val idService: UUID?= null,
     private val price: String,
     private val timeService: LocalDateTime,
-    @ManyToMany(mappedBy = "schedule", cascade = [CascadeType.ALL])
+    @ManyToMany(mappedBy = "serviceToDo", cascade = [CascadeType.ALL])
     @JsonManagedReference
     private val collaborator: List<Collaborator> = listOf()
 )

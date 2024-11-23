@@ -77,7 +77,8 @@ class ClientControllerTest {
             numberResidence = "51",
             complement = "",
             uf = "SP",
-            client = clientUserEntity
+            client = clientUserEntity,
+            null
         )
 
         clientUserEntity.addressClient.add(addressClient)

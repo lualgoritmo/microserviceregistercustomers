@@ -34,7 +34,7 @@ data class AddressGeneric(
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_collaborator")
     @JsonBackReference
-    val collaborator: Collaborator
+    val collaborator: Collaborator ? = null
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

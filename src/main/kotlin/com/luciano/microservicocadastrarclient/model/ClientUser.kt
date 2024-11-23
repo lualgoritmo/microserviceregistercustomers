@@ -10,9 +10,9 @@ import jakarta.persistence.Table
 import jakarta.persistence.Id
 import jakarta.persistence.CascadeType
 import jakarta.persistence.OneToMany
-import jakarta.persistence.ManyToOne
+import jakarta.persistence.ManyToMany
 import jakarta.persistence.FetchType
-import jakarta.persistence.JoinColumn
+import jakarta.persistence.JoinTable
 import jakarta.validation.constraints.Email
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -37,10 +37,10 @@ data class ClientUser(
     val email: String,
     @OneToMany(mappedBy = "client", cascade = [CascadeType.ALL], orphanRemoval = true)
     @JsonManagedReference
-    val addressClient: MutableSet<AddressGeneric> = mutableSetOf(),
+    var addressClient: MutableSet<AddressGeneric> = mutableSetOf(),
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_collaborator")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "id_collaborator")
     @JsonBackReference
-    val collaborator: List<Collaborator> = listOf()
+    var collaborator: List<Collaborator> = listOf()
 )
