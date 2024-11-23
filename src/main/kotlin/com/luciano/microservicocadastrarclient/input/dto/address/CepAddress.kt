@@ -1,6 +1,6 @@
 package com.luciano.microservicocadastrarclient.input.dto.address
 
-import com.luciano.microservicocadastrarclient.model.AddressClient
+import com.luciano.microservicocadastrarclient.model.AddressGeneric
 import com.luciano.microservicocadastrarclient.model.ClientUser
 import java.util.UUID
 
@@ -12,7 +12,7 @@ class CepAddress(
 ) {
 
     companion object {
-        fun fromEntity(addressClient: AddressClient): CepAddress {
+        fun fromEntity(addressClient: AddressGeneric): CepAddress {
             return CepAddress(
                 idAddress = addressClient.idAddress,
                 cep = addressClient.cep,

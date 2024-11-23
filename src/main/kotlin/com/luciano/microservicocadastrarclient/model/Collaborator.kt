@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Table
 import jakarta.persistence.Id
 import jakarta.persistence.CascadeType
+import jakarta.persistence.ManyToMany
 import jakarta.persistence.OneToMany
 import java.time.LocalDateTime
 import java.util.UUID
@@ -20,7 +21,11 @@ data class Collaborator(
     val name: String,
     val dateBirth: LocalDateTime,
     val gender: String,
+    @ManyToMany(mappedBy = "collaborator", cascade = [CascadeType.ALL])
+    @JsonManagedReference
+    val clientUser: List<ClientUser> = listOf(),
+
     @OneToMany(mappedBy = "collaborator", cascade = [CascadeType.ALL], orphanRemoval = true)
     @JsonManagedReference
-    val addressCollaborator: List<AddressClient>
+    val addressCollaborator: List<AddressGeneric>
 )

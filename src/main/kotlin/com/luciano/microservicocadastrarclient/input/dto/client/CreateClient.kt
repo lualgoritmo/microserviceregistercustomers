@@ -1,7 +1,7 @@
 package com.luciano.microservicocadastrarclient.input.dto.client
 
 import com.fasterxml.jackson.annotation.JsonFormat
-import com.luciano.microservicocadastrarclient.model.AddressClient
+import com.luciano.microservicocadastrarclient.model.AddressGeneric
 import com.luciano.microservicocadastrarclient.model.ClientUser
 import jakarta.validation.constraints.Email
 import java.time.LocalDate
@@ -22,7 +22,7 @@ data class CreateClientUser(
     val rg: String,
     @Email
     val email: String,
-    var addressClient: Set<AddressClient> = emptySet()
+    var addressClient: Set<AddressGeneric> = emptySet()
 ) {
     fun toEntity() = ClientUser(
         idClientUser = this.idClient,

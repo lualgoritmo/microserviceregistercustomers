@@ -1,7 +1,7 @@
 package com.luciano.microservicocadastrarclient.output.gateway
 
 import com.luciano.microservicocadastrarclient.input.dto.address.CepAddress
-import com.luciano.microservicocadastrarclient.model.AddressClient
+import com.luciano.microservicocadastrarclient.model.AddressGeneric
 import com.luciano.microservicocadastrarclient.repository.AddressRepository
 import com.luciano.microservicocadastrarclient.service.service.AddressService
 import com.luciano.microservicocadastrarclient.service.service.CadastreClient
@@ -16,7 +16,7 @@ class AddressServiceImpl(
     private val viaCepServiceImpl: ViaCepServiceImpl
 ) : AddressService {
     @Transactional
-    override fun createAddress(idClient: UUID, cepAddress: CepAddress): AddressClient {
+    override fun createAddress(idClient: UUID, cepAddress: CepAddress): AddressGeneric {
 
         val clientUser = clientUserService.getClientById(idClient)
 
@@ -35,13 +35,13 @@ class AddressServiceImpl(
         return savedAddress
     }
 
-    override fun getAllAddress(): List<AddressClient> = addressRepository.findAll()
-    override fun getByIdAddress(idAddress: UUID): AddressClient = addressRepository.findById(idAddress).orElseThrow {
+    override fun getAllAddress(): List<AddressGeneric> = addressRepository.findAll()
+    override fun getByIdAddress(idAddress: UUID): AddressGeneric = addressRepository.findById(idAddress).orElseThrow {
         Exception("Esse cliente não foi encontrado: $idAddress ")
 
     }
 
-    override fun updateAddressClient(idClient: UUID, idAddress: UUID, updateAddressClient: AddressClient): AddressClient {
+    override fun updateAddressClient(idClient: UUID, idAddress: UUID, updateAddressClient: AddressGeneric): AddressGeneric {
         val existingClient = clientUserService.getClientById(idClient)
 
         val existingAddress = addressRepository.findById(idAddress).orElseThrow {

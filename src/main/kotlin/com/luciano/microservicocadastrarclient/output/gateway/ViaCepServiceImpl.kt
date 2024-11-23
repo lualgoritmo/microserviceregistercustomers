@@ -2,7 +2,7 @@ package com.luciano.microservicocadastrarclient.output.gateway
 
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.luciano.microservicocadastrarclient.model.AddressClient
+import com.luciano.microservicocadastrarclient.model.AddressGeneric
 import com.luciano.microservicocadastrarclient.model.ClientUser
 import com.luciano.microservicocadastrarclient.service.dto.AddressClientResponse
 import com.luciano.microservicocadastrarclient.service.service.ViaCepService
@@ -33,14 +33,14 @@ class ViaCepServiceImpl(
         }
     }
 
-    fun getAddressClient(cep: String, client: ClientUser, numberResidence:String): AddressClient {
+    fun getAddressClient(cep: String, client: ClientUser, numberResidence:String): AddressGeneric {
         val addressResponse = this.getAddressByCep(cep)
 
         if (addressResponse.cep.isNullOrEmpty() || addressResponse.logradouro.isNullOrEmpty()) {
             throw IllegalArgumentException("Dados de endereço inválidos retornados para o CEP $cep")
         }
 
-        return AddressClient(
+        return AddressGeneric(
             cep = addressResponse.cep,
             road = addressResponse.logradouro,
             city = addressResponse.localidade ?: "Cidade não informada",

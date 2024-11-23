@@ -1,7 +1,7 @@
 package com.luciano.microservicocadastrarclient.datamodel
 
 import com.luciano.microservicocadastrarclient.input.dto.client.CreateClientUser
-import com.luciano.microservicocadastrarclient.model.AddressClient
+import com.luciano.microservicocadastrarclient.model.AddressGeneric
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter
 
 val formatterCreate = DateTimeFormatter.ofPattern("dd-MM-yyyy")
 
-val addressCreate = AddressClient(
+val addressCreate = AddressGeneric(
     idAddress = null,
     cep = "17201110",
     road = "Rua Soldado Júlio Pinheiro de Araújo",

@@ -1,18 +1,22 @@
 package com.luciano.microservicocadastrarclient.model
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import jakarta.persistence.Table
 import jakarta.persistence.GenerationType
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.Table
+import jakarta.persistence.Id
 import jakarta.persistence.CascadeType
 import jakarta.persistence.OneToMany
+import jakarta.persistence.ManyToOne
+import jakarta.persistence.FetchType
+import jakarta.persistence.JoinColumn
 import jakarta.validation.constraints.Email
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.*
+import java.util.UUID
 
 @Entity
 @Table(name = "tb_client_user")
@@ -33,5 +37,10 @@ data class ClientUser(
     val email: String,
     @OneToMany(mappedBy = "client", cascade = [CascadeType.ALL], orphanRemoval = true)
     @JsonManagedReference
-    var addressClient: MutableSet<AddressClient> = mutableSetOf()
+    val addressClient: MutableSet<AddressGeneric> = mutableSetOf(),
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_collaborator")
+    @JsonBackReference
+    val collaborator: List<Collaborator> = listOf()
 )

@@ -2,7 +2,7 @@ package com.luciano.microservicocadastrarclient.datamodel
 
 import com.luciano.microservicocadastrarclient.input.dto.address.CepAddress
 import com.luciano.microservicocadastrarclient.input.dto.client.UpdateClient
-import com.luciano.microservicocadastrarclient.model.AddressClient
+import com.luciano.microservicocadastrarclient.model.AddressGeneric
 import com.luciano.microservicocadastrarclient.model.ClientUser
 import com.luciano.microservicocadastrarclient.service.dto.AddressClientResponse
 import java.time.LocalDate
@@ -37,7 +37,7 @@ val client = ClientUser(
     addressClient = mutableSetOf()
 )
 
-val address = AddressClient(
+val address = AddressGeneric(
     idAddress = null,
     cep = "17201110",
     road = "Rua Soldado Júlio Pinheiro de Araújo",

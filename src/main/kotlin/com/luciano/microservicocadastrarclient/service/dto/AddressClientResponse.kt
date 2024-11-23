@@ -1,6 +1,6 @@
 package com.luciano.microservicocadastrarclient.service.dto
 
-import com.luciano.microservicocadastrarclient.model.AddressClient
+import com.luciano.microservicocadastrarclient.model.AddressGeneric
 import com.luciano.microservicocadastrarclient.model.ClientUser
 
 data class AddressClientResponse(
@@ -16,7 +16,7 @@ data class AddressClientResponse(
     val ddd: String,
     val siafi: String
 ) {
-    fun toEntity(client: ClientUser) = AddressClient(
+    fun toEntity(client: ClientUser) = AddressGeneric(
         cep = this.cep,
         road = this.logradouro ?: "",
         city = this.localidade ?: "",

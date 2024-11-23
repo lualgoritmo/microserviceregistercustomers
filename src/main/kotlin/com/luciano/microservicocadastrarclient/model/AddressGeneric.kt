@@ -15,7 +15,7 @@ import java.util.UUID
 @Entity
 @Table(name = "tb_addressClient")
 @JsonIgnoreProperties("client")
-data class AddressClient(
+data class AddressGeneric(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     val idAddress: UUID? = null,
@@ -38,7 +38,7 @@ data class AddressClient(
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is AddressClient) return false
+        if (other !is AddressGeneric) return false
         return idAddress == other.idAddress
     }
 

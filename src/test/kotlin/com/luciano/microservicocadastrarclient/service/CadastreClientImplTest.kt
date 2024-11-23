@@ -1,5 +1,5 @@
 import com.luciano.microservicocadastrarclient.datamodel.dateFormatter
-import com.luciano.microservicocadastrarclient.model.AddressClient
+import com.luciano.microservicocadastrarclient.model.AddressGeneric
 import com.luciano.microservicocadastrarclient.model.ClientUser
 import com.luciano.microservicocadastrarclient.output.gateway.CadastreClientImpl
 import com.luciano.microservicocadastrarclient.output.gateway.ViaCepServiceImpl
@@ -34,7 +34,7 @@ class CadastreClientImplTest {
     private lateinit var clientUserService: CadastreClientImpl
 
     private lateinit var client: ClientUser
-    private lateinit var address: AddressClient
+    private lateinit var address: AddressGeneric
 
     @BeforeEach
     fun setUp() {
@@ -56,7 +56,7 @@ class CadastreClientImplTest {
             addressClient = mutableSetOf()
         )
 
-        address = AddressClient(
+        address = AddressGeneric(
             idAddress = UUID.randomUUID(),
             cep = "17201110",
             road = "Rua Soldado Júlio Pinheiro de Araújo",

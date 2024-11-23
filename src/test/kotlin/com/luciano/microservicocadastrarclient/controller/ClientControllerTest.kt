@@ -9,7 +9,7 @@ import com.luciano.microservicocadastrarclient.datamodel.returnClientCreate
 import com.luciano.microservicocadastrarclient.input.controller.ClientController
 import com.luciano.microservicocadastrarclient.input.dto.client.CreateClientUser
 import com.luciano.microservicocadastrarclient.input.dto.client.UpdateClient
-import com.luciano.microservicocadastrarclient.model.AddressClient
+import com.luciano.microservicocadastrarclient.model.AddressGeneric
 import com.luciano.microservicocadastrarclient.model.ClientUser
 import com.luciano.microservicocadastrarclient.output.gateway.CadastreClientImpl
 import org.junit.jupiter.api.Assertions.assertNotNull
@@ -69,7 +69,7 @@ class ClientControllerTest {
             addressClient = mutableSetOf()
         )
 
-        val addressClient = AddressClient(
+        val addressClient = AddressGeneric(
             idAddress = null,
             cep = "17201110",
             road = "Rua Soldado Júlio Pinheiro de Araújo",

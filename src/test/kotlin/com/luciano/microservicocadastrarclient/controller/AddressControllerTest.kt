@@ -6,14 +6,13 @@ import com.luciano.microservicocadastrarclient.datamodel.returnClientCreate
 import com.luciano.microservicocadastrarclient.input.controller.AddressController
 import com.luciano.microservicocadastrarclient.input.dto.address.CepAddress
 import com.luciano.microservicocadastrarclient.input.dto.address.UpdateAddressClient
-import com.luciano.microservicocadastrarclient.model.AddressClient
+import com.luciano.microservicocadastrarclient.model.AddressGeneric
 import com.luciano.microservicocadastrarclient.output.gateway.AddressServiceImpl
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.InjectMocks
 import org.mockito.Mockito.verify
 import org.mockito.kotlin.any
 import org.mockito.kotlin.eq
@@ -43,7 +42,7 @@ class AddressControllerTest {
         val idClient = UUID.randomUUID()
         val cepAddress = CepAddress(cep = "17201110", numberResidence = "51", client = client)
 
-        val createdAddress = AddressClient(
+        val createdAddress = AddressGeneric(
             idAddress = UUID.randomUUID(),
             cep = cepAddress.cep,
             road = "Rua Teste",
@@ -101,7 +100,7 @@ class AddressControllerTest {
         val idClient = UUID.randomUUID()
         val idAddress = UUID.randomUUID()
 
-        val existingAddress = AddressClient(
+        val existingAddress = AddressGeneric(
             idAddress = idAddress,
             cep = "17201110",
             road = "Rua Antiga",
@@ -112,7 +111,7 @@ class AddressControllerTest {
             client = client
         )
 
-        val updatedAddressClient = AddressClient(
+        val updatedAddressClient = AddressGeneric(
             idAddress = idAddress,
             cep = "17201111",
             road = "Rua Nova",
