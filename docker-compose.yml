@@ -10,9 +10,6 @@ services:
       POSTGRES_PASSWORD: postgres
     ports:
       - "5433:5432"
-    networks:
-      - cadastreclientservice-net
-      - shared-net
 
 #  zookeeper:
 #    image: confluentinc/cp-zookeeper:latest
@@ -44,8 +41,3 @@ services:
 #      - cadastreclientservice-net
 #      - shared-net
 
-networks:
-  cadastreclientservice-net:
-    driver: bridge
-  shared-net:
-    driver: bridge
