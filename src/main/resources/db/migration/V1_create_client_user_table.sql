@@ -1,4 +1,4 @@
-CREATE TABLE client_user (
+CREATE TABLE tb_client_user (
   id_client_user UUID NOT NULL,
    name_surname VARCHAR(255),
    date_of_birth date,
@@ -9,5 +9,5 @@ CREATE TABLE client_user (
    phone VARCHAR(255),
    rg VARCHAR(255),
    email VARCHAR(255),
-   CONSTRAINT pk_client_user PRIMARY KEY (id_client_user)
+   CONSTRAINT pk_tb_client_user PRIMARY KEY (id_client_user)
 );

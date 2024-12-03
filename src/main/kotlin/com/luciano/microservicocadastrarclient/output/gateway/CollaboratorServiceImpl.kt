@@ -10,6 +10,8 @@ import java.util.UUID
 class CollaboratorServiceImpl(private val collaboratorRepository: CollaboratorRepository): CollaboratorService {
     override fun createCollaborator(collaborator: Collaborator) = collaboratorRepository.save(collaborator)
     override fun getCollaboratorWithId(idCollaborator: UUID): Collaborator {
-        TODO("Not yet implemented")
+        return collaboratorRepository.findById(idCollaborator).orElseThrow {
+            RuntimeException("Este usuário não existe!")
+        }
     }
 }

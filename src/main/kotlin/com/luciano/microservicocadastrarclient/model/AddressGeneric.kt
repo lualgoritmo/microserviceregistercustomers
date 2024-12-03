@@ -35,18 +35,4 @@ data class AddressGeneric(
     @JoinColumn(name = "id_collaborator")
     @JsonBackReference
     val collaborator: Collaborator ? = null
-) {
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is AddressGeneric) return false
-        return idAddress == other.idAddress
-    }
-
-    override fun hashCode(): Int {
-        return idAddress?.hashCode() ?: 0
-    }
-
-    override fun toString(): String {
-        return "AddressClient(idAddress=$idAddress, cep='$cep', road=$road, city='$city', numberResidence=$numberResidence, complement='$complement', uf='$uf')"
-    }
-}
+)

@@ -1,10 +1,16 @@
 package com.luciano.microservicocadastrarclient.model
 
-import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonManagedReference
-import jakarta.persistence.*
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.OneToMany
+import jakarta.persistence.CascadeType
+import jakarta.persistence.Entity
+import jakarta.persistence.Table
+import jakarta.persistence.Id
 import java.time.LocalDateTime
 import java.util.UUID
+
 @Entity
 @Table(name = "tb_collaborator")
 data class Collaborator(
@@ -15,17 +21,8 @@ data class Collaborator(
     val name: String,
     val dateBirth: LocalDateTime,
     val gender: String,
-    @ManyToMany(mappedBy = "collaborator", cascade = [CascadeType.ALL])
-    @JsonManagedReference
-    val clientUser: List<ClientUser> = listOf(),
-
+    val registrationDate: LocalDateTime,
     @OneToMany(mappedBy = "collaborator", cascade = [CascadeType.ALL], orphanRemoval = true)
     @JsonManagedReference
-    val addressCollaborator: List<AddressGeneric>,
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "id_serviceToDo")
-    @JsonBackReference
-    val serviceToDo: MutableSet<ServiceToDo> = mutableSetOf()
-
+    val addressCollaborator: MutableSet<AddressGeneric>
 )
