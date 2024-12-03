@@ -20,11 +20,11 @@ import java.util.UUID
 data class ServiceSchedule(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private val idService: UUID?= null,
-    private val description: String,
-    private val price: BigDecimal,
-    private val serviceDate: LocalDate,
-    private val serviceHours: LocalDateTime,
+     val idService: UUID?= null,
+     val description: String,
+     val price: BigDecimal,
+     val serviceDate: LocalDate,
+     val serviceHours: LocalDateTime,
 
     @ManyToMany(cascade = [CascadeType.ALL])
     @JsonManagedReference

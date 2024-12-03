@@ -14,4 +14,11 @@ class CollaboratorServiceImpl(private val collaboratorRepository: CollaboratorRe
             RuntimeException("Este usuário não existe!")
         }
     }
+
+    override fun findAllById(idsCollaborator: List<UUID>): List<Collaborator> {
+        if(idsCollaborator.isEmpty()) {
+            return emptyList()
+        }
+        return collaboratorRepository.findAllById(idsCollaborator)
+    }
 }
