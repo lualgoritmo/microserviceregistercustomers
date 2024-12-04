@@ -17,7 +17,9 @@ class CollaboratorServiceImpl(private val collaboratorRepository: CollaboratorRe
 
     override fun findAllById(idsCollaborator: List<UUID>): List<Collaborator> {
         if(idsCollaborator.isEmpty()) {
-            return emptyList()
+            return emptyList<Collaborator>().apply {
+                println("Lista vazia no serviço!")
+            }
         }
         return collaboratorRepository.findAllById(idsCollaborator)
     }
