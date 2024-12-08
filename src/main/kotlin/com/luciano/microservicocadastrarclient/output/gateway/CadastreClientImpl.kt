@@ -22,7 +22,7 @@ class CadastreClientImpl(
     override fun cadastreClient(client: ClientUser): ClientUser {
 
         val savedClient = clientRepository.save(client)
-        requireNotNull(savedClient) { "Failed to save the client" }
+        requireNotNull(savedClient) { "Falha ao salvar o cliente" }
 
         if (savedClient.addressClient == null) {
             savedClient.addressClient = mutableSetOf()

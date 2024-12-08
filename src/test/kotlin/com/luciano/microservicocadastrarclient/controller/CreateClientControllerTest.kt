@@ -6,7 +6,7 @@ import com.luciano.microservicocadastrarclient.datamodel.client
 import com.luciano.microservicocadastrarclient.datamodel.dateFormatter
 import com.luciano.microservicocadastrarclient.datamodel.returnClient
 import com.luciano.microservicocadastrarclient.datamodel.returnClientCreate
-import com.luciano.microservicocadastrarclient.input.controller.ClientController
+import com.luciano.microservicocadastrarclient.input.controller.CreateClientController
 import com.luciano.microservicocadastrarclient.input.dto.client.CreateClientUser
 import com.luciano.microservicocadastrarclient.input.dto.client.UpdateClient
 import com.luciano.microservicocadastrarclient.model.AddressGeneric
@@ -35,8 +35,8 @@ import java.time.LocalDateTime
 import java.util.UUID
 
 @ExtendWith(SpringExtension::class)
-@WebMvcTest(ClientController::class)
-class ClientControllerTest {
+@WebMvcTest(CreateClientController::class)
+class CreateClientControllerTest {
 
     @MockBean
     private lateinit var clientUserService: CadastreClientImpl
@@ -47,11 +47,11 @@ class ClientControllerTest {
     @Autowired
     private lateinit var mockMVC: MockMvc
 
-    private lateinit var clientController: ClientController
+    private lateinit var clientController: CreateClientController
 
     @BeforeEach
     fun setUp() {
-        clientController = ClientController(clientUserService)
+        clientController = CreateClientController(clientUserService)
     }
     @Test
     fun `when POST cadastreClient is called, it should return created client`() {

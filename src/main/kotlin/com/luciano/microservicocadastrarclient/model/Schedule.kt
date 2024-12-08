@@ -17,7 +17,7 @@ import java.util.UUID
 
 @Entity
 @Table(name = "tb_service_schedule")
-data class ServiceSchedule(
+data class Schedule(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
      val idService: UUID?= null,
@@ -32,6 +32,6 @@ data class ServiceSchedule(
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    val client: ClientUser
+    val client: ClientUser ?= null
 )
 

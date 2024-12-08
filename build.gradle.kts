@@ -27,9 +27,6 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	//testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-	//testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	implementation("jakarta.ws.rs:jakarta.ws.rs-api:3.0.0")
 	implementation("org.postgresql:postgresql:42.6.0")
@@ -39,6 +36,9 @@ dependencies {
 	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	//testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+	//testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.mockito:mockito-core:5.3.0")
 	testImplementation("org.mockito.kotlin:mockito-kotlin:5.0.0")
 
@@ -46,9 +46,10 @@ dependencies {
 	implementation("org.springframework.kafka:spring-kafka")
 	implementation("org.apache.kafka:kafka-clients")
 
-	//Flayway
-	//implementation("org.flywaydb:flyway-core:9.22.0")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("org.springframework.boot:spring-boot-starter-web")
 
+    //força subida
 }
 
 kotlin {

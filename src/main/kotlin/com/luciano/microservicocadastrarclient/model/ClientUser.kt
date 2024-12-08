@@ -26,13 +26,14 @@ data class ClientUser(
     val registrationDate: LocalDateTime = LocalDateTime.now(),
     val cpf: String,
     val cep: String,
-    val numberResidence: String?=null,
+    val numberResidence: String? = null,
     val phone: String,
     val rg: String,
     @Email
     val email: String,
     @OneToMany(mappedBy = "client", cascade = [CascadeType.ALL], orphanRemoval = true)
     @JsonManagedReference
-    var addressClient: MutableSet<AddressGeneric> = mutableSetOf(),
-
+    var addressClient: MutableSet<AddressGeneric> = mutableSetOf()
 )
+
+

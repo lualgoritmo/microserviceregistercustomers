@@ -14,10 +14,9 @@ import java.util.UUID
 @Entity
 @Table(name = "tb_collaborator")
 data class Collaborator(
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val idCollaborator: UUID ? = null,
+    val idCollaborator: UUID? = null,
     val name: String,
     val dateBirth: LocalDateTime,
     val gender: String,
@@ -26,3 +25,4 @@ data class Collaborator(
     @JsonManagedReference
     val addressCollaborator: MutableSet<AddressGeneric>
 )
+

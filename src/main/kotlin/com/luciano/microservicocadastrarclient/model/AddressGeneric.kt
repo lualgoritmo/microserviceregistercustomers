@@ -19,10 +19,10 @@ data class AddressGeneric(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     val idAddress: UUID? = null,
-    val cep: String?=null,
+    val cep: String? = null,
     val road: String? = null,
     val city: String?,
-    val numberResidence: String?= null,
+    val numberResidence: String? = null,
     val complement: String?,
     val uf: String?,
 
@@ -34,5 +34,5 @@ data class AddressGeneric(
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_collaborator")
     @JsonBackReference
-    val collaborator: Collaborator ? = null
+    val collaborator: Collaborator? = null
 )

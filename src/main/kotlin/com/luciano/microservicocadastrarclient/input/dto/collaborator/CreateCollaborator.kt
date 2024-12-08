@@ -39,5 +39,18 @@ data class CreateCollaborator(
             gender = collaborator.gender,
             addressCollaborator = collaborator.addressCollaborator
         )
+
+        fun fromListCollaborators(collaborators: List<Collaborator>) =
+            collaborators.map { collaborator ->
+                CreateCollaborator(
+                    idCollaborator = collaborator.idCollaborator,
+                    name = collaborator.name,
+                    dateBirth = collaborator.dateBirth,
+                    registrationDate = collaborator.registrationDate,
+                    gender = collaborator.gender,
+                    addressCollaborator = collaborator.addressCollaborator
+                )
+            }
+
     }
 }
