@@ -25,7 +25,7 @@ data class CreateSchedule(
 ) {
 
     fun toEntity(): Schedule = Schedule(
-        idService = this.idService,
+        idShedule = this.idService,
         description = this.description,
         price = this.price,
         serviceDate = this.serviceDate,
@@ -36,7 +36,7 @@ data class CreateSchedule(
     companion object {
         fun fromEntity(schedule: Schedule): CreateSchedule =
             CreateSchedule(
-                idService = schedule.idService,
+                idService = schedule.idShedule,
                 description = schedule.description,
                 price = schedule.price,
                 serviceDate = schedule.serviceDate,
@@ -48,7 +48,7 @@ data class CreateSchedule(
         fun fromListEntity(schedules: List<Schedule>, collaborators: List<Collaborator>): List<CreateSchedule> =
             schedules.map { schedule ->
                 CreateSchedule(
-                    idService = schedule.idService,
+                    idService = schedule.idShedule,
                     description = schedule.description,
                     price = schedule.price,
                     serviceDate = schedule.serviceDate,

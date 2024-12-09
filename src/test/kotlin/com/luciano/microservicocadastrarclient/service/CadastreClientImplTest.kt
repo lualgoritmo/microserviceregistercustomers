@@ -79,14 +79,14 @@ class CadastreClientImplTest {
 
         assertNotNull(result)
         assertEquals(client.cep, result.cep)
-        assertTrue(result.addressClient.isNotEmpty())
-        assertEquals(1, result.addressClient.size)
+        assertTrue(result.addressClient!!.isNotEmpty())
+        assertEquals(1, result.addressClient?.size)
 
-        val savedAddress = result.addressClient.first()
-        assertEquals(address.cep, savedAddress.cep)
-        assertEquals(address.city, savedAddress.city)
-        assertEquals(address.uf, savedAddress.uf)
-        assertEquals(client, savedAddress.client)
+        val savedAddress = result.addressClient?.first()
+        assertEquals(address.cep, savedAddress?.cep)
+        assertEquals(address.city, savedAddress?.city)
+        assertEquals(address.uf, savedAddress?.uf)
+        assertEquals(client, savedAddress?.client)
 
         verify(clientRepository, times(1)).save(any())
         verify(addressRepository, times(1)).save(any())

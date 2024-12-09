@@ -1,18 +1,20 @@
 package com.luciano.microservicocadastrarclient.config
 
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.module.kotlin.KotlinModule
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.converter.HttpMessageConverter
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @Configuration
-class WebConfig : WebMvcConfigurer {
-    override fun extendMessageConverters(converters: MutableList<HttpMessageConverter<*>>) {
-        converters
-            .filterIsInstance<MappingJackson2HttpMessageConverter>()
-            .forEach { converter ->
-                converter.supportedMediaTypes = converter.supportedMediaTypes +
-                        org.springframework.http.MediaType.valueOf("application/json;charset=UTF-8")
-            }
+class WebConfig {
+    @Bean
+    fun objectMapper(): ObjectMapper {
+        return ObjectMapper().apply {
+            registerModule(KotlinModule.Builder().build())
+            registerModule(JavaTimeModule())
+            configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        }
     }
 }

@@ -15,7 +15,9 @@ import java.util.UUID
 class CreateClientController(
     private val clientUserService: CadastreClient
 ) {
-    @PostMapping("/create-client", consumes = ["application/json"], produces = ["application/json"])
+    @PostMapping(
+        "/create-client"
+    )
     fun createdClient(
         @RequestBody @Valid clientUser: CreateClientUser
     ): ResponseEntity<CreateClientUser> {

@@ -39,5 +39,5 @@ class CollaboratorController(
         val responseCollaborator = CreateCollaborator.fromListCollaborators(collaborators)
         return ResponseEntity.status(HttpStatus.OK).body(responseCollaborator)
     }
-//FORÇA A SUBIDA
+
 }

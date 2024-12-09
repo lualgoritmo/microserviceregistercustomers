@@ -24,13 +24,13 @@ class AddressServiceImpl(
             cepAddress.cep!!, clientUser, cepAddress.numberResidence ?: ""
         )
 
-        if (clientUser.addressClient.any { it.numberResidence == newAddress.numberResidence }) {
+        if (clientUser.addressClient!!.any { it.numberResidence == newAddress.numberResidence }) {
             throw IllegalArgumentException("Endereço duplicado.")
         }
 
         val savedAddress = addressRepository.save(newAddress)
 
-        clientUser.addressClient.add(savedAddress)
+        clientUser.addressClient!!.add(savedAddress)
 
         return savedAddress
     }
@@ -56,8 +56,8 @@ class AddressServiceImpl(
 
         addressRepository.save(updateAddress)
 
-        existingClient.addressClient.removeIf { it.idAddress == idAddress }
-        existingClient.addressClient.add(updateAddress)
+        existingClient.addressClient?.removeIf { it.idAddress == idAddress }
+        existingClient.addressClient?.add(updateAddress)
 
         return existingAddress
     }

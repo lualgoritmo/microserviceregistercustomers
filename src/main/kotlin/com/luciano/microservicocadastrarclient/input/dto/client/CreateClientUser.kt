@@ -22,7 +22,7 @@ data class CreateClientUser(
     val rg: String,
     @Email
     val email: String,
-    var addressClient: Set<AddressGeneric> = emptySet()
+    val addressClient: Set<AddressGeneric>? = null
 ) {
     fun toEntity() = ClientUser(
         idClientUser = this.idClient,

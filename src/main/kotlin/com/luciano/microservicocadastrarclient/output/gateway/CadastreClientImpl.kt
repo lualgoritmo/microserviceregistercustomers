@@ -34,7 +34,7 @@ class CadastreClientImpl(
             numberResidence = client.numberResidence ?: ""
         ) ?: throw IllegalArgumentException("O cep não existe: ${client.cep}")
 
-        savedClient.addressClient.add(address)
+        savedClient.addressClient?.add(address)
 
         addressRepository.save(address)
 
@@ -70,4 +70,3 @@ class CadastreClientImpl(
     }
 
 }
-

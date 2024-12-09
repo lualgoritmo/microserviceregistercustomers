@@ -5,26 +5,24 @@ import com.luciano.microservicocadastrarclient.model.ClientUser
 
 data class AddressClientResponse(
     val cep: String? = null,
-    val logradouro: String,
-    val complemento: String,
-    val bairro: String,
-    val localidade: String,
-    val uf: String,
-    val numberResidence: String?=null,
-    val ibge: String,
-    val gia: String,
-    val ddd: String,
-    val siafi: String
+    val logradouro: String? = null,
+    val complemento: String? = null,
+    val bairro: String? = null,
+    val localidade: String? = null,
+    val uf: String? = null,
+    val numberResidence: String? = null,
+    val ibge: String? = null,
+    val gia: String? = null,
+    val ddd: String? = null,
+    val siafi: String? = null
 ) {
     fun toEntity(client: ClientUser) = AddressGeneric(
         cep = this.cep,
         road = this.logradouro ?: "",
         city = this.localidade ?: "",
-        numberResidence = client.numberResidence?: "",
+        numberResidence = client.numberResidence ?: "",
         complement = this.complemento ?: "",
         uf = this.uf ?: "",
         client = client
     )
-
 }
-

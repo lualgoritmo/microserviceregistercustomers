@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 fun returnClientCreate(): ClientUser {
-    client.addressClient.add(address)
+    client.addressClient!!.add(address)
     return client
 }
 

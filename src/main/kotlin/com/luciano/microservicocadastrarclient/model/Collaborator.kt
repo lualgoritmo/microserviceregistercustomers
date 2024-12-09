@@ -8,11 +8,13 @@ import jakarta.persistence.CascadeType
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
 import jakarta.persistence.Id
+import lombok.EqualsAndHashCode
 import java.time.LocalDateTime
 import java.util.UUID
 
 @Entity
 @Table(name = "tb_collaborator")
+@EqualsAndHashCode(of = ["idCollaborator"])
 data class Collaborator(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,7 +24,8 @@ data class Collaborator(
     val gender: String,
     val registrationDate: LocalDateTime,
     @OneToMany(mappedBy = "collaborator", cascade = [CascadeType.ALL], orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference("collaboratorReference")
     val addressCollaborator: MutableSet<AddressGeneric>
 )
+
 

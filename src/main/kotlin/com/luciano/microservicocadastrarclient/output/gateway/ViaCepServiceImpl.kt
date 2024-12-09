@@ -21,7 +21,6 @@ class ViaCepServiceImpl(
         private const val VIA_CEP_URL = "https://viacep.com.br/ws/"
     }
     override fun getAddressByCep(cep: String): AddressClientResponse {
-
         return try {
             val webTarget: WebTarget = builder.target("$VIA_CEP_URL$cep/json/")
             val responseJson = webTarget.request(MediaType.APPLICATION_JSON).get(String::class.java)
@@ -33,7 +32,7 @@ class ViaCepServiceImpl(
         }
     }
 
-    fun getAddressClient(cep: String, client: ClientUser, numberResidence:String): AddressGeneric {
+    fun getAddressClient(cep: String, client: ClientUser, numberResidence: String): AddressGeneric {
         val addressResponse = this.getAddressByCep(cep)
 
         if (addressResponse.cep.isNullOrEmpty() || addressResponse.logradouro.isNullOrEmpty()) {
@@ -42,7 +41,7 @@ class ViaCepServiceImpl(
 
         return AddressGeneric(
             cep = addressResponse.cep,
-            road = addressResponse.logradouro,
+            road = addressResponse.logradouro ?: "Rua não informada",
             city = addressResponse.localidade ?: "Cidade não informada",
             numberResidence = numberResidence,
             complement = addressResponse.complemento ?: "",
@@ -50,5 +49,4 @@ class ViaCepServiceImpl(
             client = client
         )
     }
-
 }
