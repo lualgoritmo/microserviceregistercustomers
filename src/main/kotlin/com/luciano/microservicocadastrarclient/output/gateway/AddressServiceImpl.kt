@@ -5,6 +5,7 @@ import com.luciano.microservicocadastrarclient.model.AddressGeneric
 import com.luciano.microservicocadastrarclient.repository.AddressRepository
 import com.luciano.microservicocadastrarclient.service.service.AddressService
 import com.luciano.microservicocadastrarclient.service.service.CadastreClient
+import com.luciano.microservicocadastrarclient.service.service.CollaboratorService
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 import java.util.UUID
@@ -12,29 +13,36 @@ import java.util.UUID
 @Service
 class AddressServiceImpl(
     private val clientUserService: CadastreClient,
+    private val collaboratorService: CollaboratorService,
     private val addressRepository: AddressRepository,
     private val viaCepServiceImpl: ViaCepServiceImpl
 ) : AddressService {
     @Transactional
-    override fun createAddress(idClient: UUID, cepAddress: CepAddress): AddressGeneric {
-
-        val clientUser = clientUserService.getClientById(idClient)
-
-        val newAddress = viaCepServiceImpl.getAddressClient(
-            cepAddress.cep!!, clientUser, cepAddress.numberResidence ?: ""
+    override fun createAddress(cepAddress: CepAddress, idClient: UUID?, idCollaborator: UUID?): AddressGeneric {
+        val clientUser = idClient?.let { clientUserService.getClientById(it) }
+        val collaborator = idCollaborator?.let { collaboratorService.findByIdCollaborator(it) }
+        val newAddress = viaCepServiceImpl.getAddress(
+            cepAddress.cep!!, clientUser, collaborator = collaborator,cepAddress.numberResidence ?: ""
         )
 
-        if (clientUser.addressClient!!.any { it.numberResidence == newAddress.numberResidence }) {
-            throw IllegalArgumentException("Endereço duplicado.")
+        clientUser?.addressClient?.let { address ->
+            if(address.any { it.numberResidence == newAddress.numberResidence }) {
+                throw IllegalArgumentException("Endereço do Cliente duplicado")
+            }
+        }
+
+        collaborator?.addressCollaborator?.let { address ->
+            if(address.any { it.numberResidence == newAddress.numberResidence }) {
+                throw IllegalArgumentException(" Endereço do Collaborador duplicado ")
+            }
         }
 
         val savedAddress = addressRepository.save(newAddress)
 
-        clientUser.addressClient!!.add(savedAddress)
+        clientUser?.addressClient?.add(savedAddress)
 
         return savedAddress
     }
-
     override fun getAllAddress(): List<AddressGeneric> = addressRepository.findAll()
     override fun getByIdAddress(idAddress: UUID): AddressGeneric = addressRepository.findById(idAddress).orElseThrow {
         Exception("Esse cliente não foi encontrado: $idAddress ")
@@ -56,8 +64,8 @@ class AddressServiceImpl(
 
         addressRepository.save(updateAddress)
 
-        existingClient.addressClient?.removeIf { it.idAddress == idAddress }
-        existingClient.addressClient?.add(updateAddress)
+        existingClient.addressClient.removeIf { it.idAddress == idAddress }
+        existingClient.addressClient.add(updateAddress)
 
         return existingAddress
     }

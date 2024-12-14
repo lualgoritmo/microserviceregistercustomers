@@ -21,7 +21,7 @@ data class ClientWithAddress(
     val rg: String,
     @Email
     val email: String,
-    var addressClient: MutableSet<AddressGeneric>? = null
+    var addressClient: MutableSet<AddressGeneric>
 ) {
     fun toEntity(): ClientUser {
         val clientUser = ClientUser(
@@ -36,9 +36,9 @@ data class ClientWithAddress(
             addressClient = mutableSetOf()
         )
 
-        val addresses = this.addressClient?.map { address ->
+        val addresses = this.addressClient.map { address ->
             address.copy(client = clientUser)
-        }?.toMutableSet()
+        }.toMutableSet()
 
         clientUser.addressClient = addresses
 

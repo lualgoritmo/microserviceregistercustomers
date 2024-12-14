@@ -3,7 +3,7 @@ package com.luciano.microservicocadastrarclient.service.dto
 import com.luciano.microservicocadastrarclient.model.AddressGeneric
 import com.luciano.microservicocadastrarclient.model.ClientUser
 
-data class AddressClientResponse(
+data class AddressGenericResponse(
     val cep: String? = null,
     val logradouro: String? = null,
     val complemento: String? = null,

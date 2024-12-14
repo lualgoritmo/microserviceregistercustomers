@@ -36,7 +36,6 @@ data class CreateClientUser(
         email = this.email,
         addressClient = mutableSetOf()
     )
-
     companion object {
         fun fromEntity(clientUser: ClientUser) = CreateClientUser(
             idClient = clientUser.idClientUser,
@@ -48,7 +47,17 @@ data class CreateClientUser(
             phone = clientUser.phone,
             rg = clientUser.rg,
             email = clientUser.email,
-            addressClient = clientUser.addressClient
+            addressClient = clientUser.addressClient.map { address ->
+                AddressGeneric(
+                    idAddress = address.idAddress,
+                    cep = address.cep,
+                    road = address.road,
+                    city = address.city,
+                    numberResidence = address.numberResidence,
+                    complement = address.complement,
+                    uf = address.uf
+                )
+            }.toSet()
         )
     }
 

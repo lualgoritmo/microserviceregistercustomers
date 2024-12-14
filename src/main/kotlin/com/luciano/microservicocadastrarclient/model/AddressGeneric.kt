@@ -11,13 +11,11 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.FetchType
-import lombok.EqualsAndHashCode
 import java.util.UUID
 
 @Entity
 @Table(name = "tb_addressClient")
 @JsonIgnoreProperties("client")
-//@EqualsAndHashCode(of = ["idAddress"])
 data class AddressGeneric(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 class SheduleController(
     private val sheduleService: ScheduleService
 ) {
-    @PostMapping("/create-shedule")
+    @PostMapping("/create-schedule")
     fun createShedule(@Valid @RequestBody schedule: CreateSchedule): ResponseEntity<CreateSchedule> {
         val scheduleEntity = schedule.toEntity()
         return ResponseEntity.status(HttpStatus.CREATED).body(CreateSchedule.fromEntity(scheduleEntity))

@@ -74,7 +74,7 @@ class CadastreClientImplTest {
 
         whenever(clientRepository.save(client)).thenReturn(client)
         whenever(addressRepository.save(address)).thenReturn(address)
-        whenever(viaCep.getAddressClient("17201110", client, "51")).thenReturn(address)
+        whenever(viaCep.getAddress("17201110", client, "51")).thenReturn(address)
         val result = clientUserService.cadastreClient(client)
 
         assertNotNull(result)

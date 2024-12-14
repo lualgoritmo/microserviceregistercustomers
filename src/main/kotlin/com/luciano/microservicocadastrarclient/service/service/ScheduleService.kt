@@ -4,6 +4,6 @@ import com.luciano.microservicocadastrarclient.model.Schedule
 import java.util.UUID
 
 interface ScheduleService {
-    fun createScheduleService(serviceSchedule: Schedule): Schedule
+    fun createScheduleService(schedule: Schedule, idAddress:UUID, idClint:UUID): Schedule
     fun getServiceById(idServiceToDo: UUID): ScheduleService
 }

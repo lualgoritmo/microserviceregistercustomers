@@ -21,24 +21,14 @@ class CadastreClientImpl(
     @Transactional
     override fun cadastreClient(client: ClientUser): ClientUser {
 
-        val savedClient = clientRepository.save(client)
-        requireNotNull(savedClient) { "Falha ao salvar o cliente" }
-
-        if (savedClient.addressClient == null) {
-            savedClient.addressClient = mutableSetOf()
-        }
-
-        val address = viaCep.getAddressClient(
+        val address = viaCep.getAddress(
             cep = client.cep,
-            client = savedClient,
-            numberResidence = client.numberResidence ?: ""
-        ) ?: throw IllegalArgumentException("O cep não existe: ${client.cep}")
+            client = client,
+            numberResidence = client.numberResidence?:""
+        )
+        client.addressClient.add(address)
+        return clientRepository.save(client)
 
-        savedClient.addressClient?.add(address)
-
-        addressRepository.save(address)
-
-        return savedClient
     }
 
     @Transactional

@@ -1,14 +1,6 @@
 package com.luciano.microservicocadastrarclient.model
 
-import jakarta.persistence.Entity
-import jakarta.persistence.Table
-import jakarta.persistence.Id
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.ManyToMany
-import jakarta.persistence.ManyToOne
-import jakarta.persistence.CascadeType
-import jakarta.persistence.JoinColumn
+import jakarta.persistence.*
 import lombok.EqualsAndHashCode
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -31,7 +23,11 @@ data class Schedule(
     val collaborator: List<Collaborator> = listOf(),
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    val client: ClientUser ?= null
+    @JoinColumn(name = "id_client")
+    val client: ClientUser,
+
+    @OneToOne
+    @JoinColumn(name = "id_address")
+    val addressClient: List<AddressGeneric> = listOf()
 )
 

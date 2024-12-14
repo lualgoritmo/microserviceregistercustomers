@@ -10,13 +10,14 @@ import jakarta.persistence.Id
 import jakarta.persistence.CascadeType
 import jakarta.persistence.OneToMany
 import jakarta.validation.constraints.Email
+import lombok.EqualsAndHashCode
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.UUID
 
 @Entity
 @Table(name = "tb_client_user")
-//@EqualsAndHashCode(of = ["idClientUser"])
+@EqualsAndHashCode(of = ["idClientUser"])
 data class ClientUser(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,18 +41,5 @@ data class ClientUser(
 
     @OneToMany(mappedBy = "client", cascade = [CascadeType.ALL], orphanRemoval = true)
     @JsonManagedReference("clientReference")
-    var addressClient: MutableSet<AddressGeneric>? = null
-) {
-    override fun hashCode(): Int {
-        return idClientUser.hashCode()
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as ClientUser
-
-        return idClientUser == other.idClientUser
-    }
-}
+    var addressClient: MutableSet<AddressGeneric>
+)

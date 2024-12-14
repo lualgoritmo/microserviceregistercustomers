@@ -7,4 +7,5 @@ interface CollaboratorService {
     fun createCollaborator(collaborator: Collaborator): Collaborator
     fun getCollaboratorWithId(idCollaborator: UUID): Collaborator
     fun findAllById(idsCollaborator: List<UUID>): List<Collaborator>
+    fun findByIdCollaborator(idCollaborator: UUID): Collaborator
 }

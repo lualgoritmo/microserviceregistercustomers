@@ -1,7 +1,8 @@
 package com.luciano.microservicocadastrarclient.input.controller
 
 import com.luciano.microservicocadastrarclient.input.dto.address.CepAddress
-import com.luciano.microservicocadastrarclient.input.dto.address.CreateAddress
+import com.luciano.microservicocadastrarclient.input.dto.address.CreateAddressClient
+import com.luciano.microservicocadastrarclient.input.dto.address.CreateAddressCollaborator
 import com.luciano.microservicocadastrarclient.input.dto.address.UpdateAddressClient
 import com.luciano.microservicocadastrarclient.service.service.AddressService
 import jakarta.validation.Valid
@@ -21,26 +22,33 @@ import java.util.UUID
 class AddressController(
     private val addressService: AddressService,
 ) {
-    @PostMapping("/{idClient}")
-    fun createAddress(
+    @PostMapping("/create-address-client/{idClient}")
+    fun createAddressClient(
         @PathVariable("idClient") idClient: UUID,
         @RequestBody @Valid cepAddress: CepAddress
-    ): ResponseEntity<CreateAddress> {
-        val address = addressService.createAddress(idClient, cepAddress)
-        return ResponseEntity.status(HttpStatus.CREATED).body(CreateAddress.fromEntity(addressClient = address))
+    ): ResponseEntity<CreateAddressClient> {
+        val address = addressService.createAddress(cepAddress = cepAddress, idClient = idClient, )
+        return ResponseEntity.status(HttpStatus.CREATED).body(CreateAddressClient.fromEntity(addressClient = address))
     }
-
+    @PostMapping("/create-address-collaborator/{idCollaborator}")
+    fun createAddressCollaborator(
+        @PathVariable("idCollaborator") idCollaborator:UUID,
+        @RequestBody @Valid cepAddress: CepAddress
+    ): ResponseEntity<CreateAddressCollaborator> {
+        val address = addressService.createAddress(cepAddress = cepAddress, idCollaborator = idCollaborator)
+        return ResponseEntity.status(HttpStatus.CREATED).body(CreateAddressCollaborator.fromEntity(addressClient = address))
+    }
     @GetMapping("/alladdress")
-    fun getAllAddress(): ResponseEntity<List<CreateAddress>> {
+    fun getAllAddress(): ResponseEntity<List<CreateAddressClient>> {
         return ResponseEntity.status(HttpStatus.OK).body(addressService.getAllAddress().map {
-            CreateAddress.fromEntity(addressClient = it)
+            CreateAddressClient.fromEntity(addressClient = it)
         })
     }
 
     @GetMapping("/{idAdress}")
-    fun getByIdAddress(@PathVariable idAddress: UUID): ResponseEntity<CreateAddress> {
+    fun getByIdAddress(@PathVariable idAddress: UUID): ResponseEntity<CreateAddressClient> {
         val address = addressService.getByIdAddress(idAddress)
-        return ResponseEntity.status(HttpStatus.OK).body(CreateAddress.fromEntity(addressClient = address))
+        return ResponseEntity.status(HttpStatus.OK).body(CreateAddressClient.fromEntity(addressClient = address))
     }
     @PutMapping("/update-address/{idClient}/{idAddress}")
     fun updateAddressClient(

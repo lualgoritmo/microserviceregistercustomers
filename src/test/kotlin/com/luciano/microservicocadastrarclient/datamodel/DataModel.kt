@@ -4,7 +4,7 @@ import com.luciano.microservicocadastrarclient.input.dto.address.CepAddress
 import com.luciano.microservicocadastrarclient.input.dto.client.UpdateClient
 import com.luciano.microservicocadastrarclient.model.AddressGeneric
 import com.luciano.microservicocadastrarclient.model.ClientUser
-import com.luciano.microservicocadastrarclient.service.dto.AddressClientResponse
+import com.luciano.microservicocadastrarclient.service.dto.AddressGenericResponse
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -48,7 +48,7 @@ val address = AddressGeneric(
     client = client
 )
 
-val addressResponse = AddressClientResponse(
+val addressResponse = AddressGenericResponse(
     cep = "17201110",
     logradouro = "Rua Soldado Júlio Pinheiro de Araújo",
     localidade = "Jaú",

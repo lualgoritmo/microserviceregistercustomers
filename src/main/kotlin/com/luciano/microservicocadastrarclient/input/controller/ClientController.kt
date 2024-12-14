@@ -12,12 +12,10 @@ import java.util.UUID
 
 @RestController
 @RequestMapping("/v1/clients")
-class CreateClientController(
+class ClientController(
     private val clientUserService: CadastreClient
 ) {
-    @PostMapping(
-        "/create-client"
-    )
+    @PostMapping("/create-client")
     fun createdClient(
         @RequestBody @Valid clientUser: CreateClientUser
     ): ResponseEntity<CreateClientUser> {
