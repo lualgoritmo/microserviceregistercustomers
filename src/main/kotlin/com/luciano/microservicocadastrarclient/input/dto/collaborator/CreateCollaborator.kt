@@ -3,6 +3,7 @@ package com.luciano.microservicocadastrarclient.input.dto.collaborator
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.luciano.microservicocadastrarclient.model.AddressGeneric
 import com.luciano.microservicocadastrarclient.model.Collaborator
+import com.luciano.microservicocadastrarclient.model.Schedule
 import jakarta.validation.constraints.Email
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -22,9 +23,11 @@ data class CreateCollaborator(
     val rg: String,
     @Email
     val email: String,
+    val schedule: MutableSet<Schedule>?= mutableSetOf(),
     val addressClient: Set<AddressGeneric>? = null
+
 ) {
-    fun toEntity() = Collaborator(
+    fun toEntity():Collaborator = Collaborator(
         idCollaborator = this.idCollaborator,
         nameSurname = this.nameSurname,
         cpf = this.cpf,
@@ -34,6 +37,7 @@ data class CreateCollaborator(
         numberResidence = this.numberResidence,
         rg = this.rg,
         email = this.email,
+        schedule = mutableSetOf(),
         addressCollaborator = mutableSetOf()
     )
     companion object {

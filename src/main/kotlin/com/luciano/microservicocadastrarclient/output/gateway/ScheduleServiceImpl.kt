@@ -1,5 +1,6 @@
 package com.luciano.microservicocadastrarclient.output.gateway
 
+import com.luciano.microservicocadastrarclient.input.dto.shedule.request.CreateSchedule
 import com.luciano.microservicocadastrarclient.model.Schedule
 import com.luciano.microservicocadastrarclient.repository.ServiceToDoRepository
 import com.luciano.microservicocadastrarclient.service.service.AddressService
@@ -18,31 +19,38 @@ class ScheduleServiceImpl(
     private val addressService: AddressService
 ) : ScheduleService {
     @Transactional
-    override fun createScheduleService(schedule: Schedule, idAddress: UUID, idClient: UUID): Schedule {
+    override fun createSchedule(scheduleDTO: CreateSchedule, idAddress: UUID, idClient: UUID): Schedule {
         val client = clientService.getClientById(idClient)
 
-        val address = schedule.addressClient.mapNotNull {
-            it.idAddress?.let { address ->
-                addressService.getByIdAddress(address)
-            }
+        val address = addressService.getByIdAddress(idAddress)
+        val existingSchedule = serviceToDoRepository
+            .findByClientAndAddressAndServiceDate(
+                client = client,
+                address = address,
+                serviceDate = scheduleDTO.serviceDate
+            )
+
+        if (existingSchedule != null) {
+            throw RuntimeException("Já existe um agendamento para este cliente no mesmo endereço e data.")
         }
-        val collaborator = schedule.collaborator.mapNotNull { collaborator ->
-            collaborator.idCollaborator
+
+        val listCollaborators = collaboratorService.findAllById(scheduleDTO.collaborators)
+
+        if(listCollaborators.isEmpty()) {
+            throw RuntimeException("Lista de colaboradores vazia")
         }
-        val listCollaborators = collaboratorService.findAllById(collaborator)
 
         val service = Schedule(
-            description = schedule.description,
-            price = schedule.price,
-            serviceDate = schedule.serviceDate,
-            serviceHours = schedule.serviceHours,
+            description = scheduleDTO.description,
+            price = scheduleDTO.price,
+            serviceDate = scheduleDTO.serviceDate,
+            serviceHours = scheduleDTO.serviceHours,
             collaborator = listCollaborators,
             client = client,
-            addressClient = address
+            address = address
         )
         return serviceToDoRepository.save(service)
     }
-
     override fun getServiceById(idServiceToDo: UUID): ScheduleService {
         TODO("Not yet implemented")
     }

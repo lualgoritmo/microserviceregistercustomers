@@ -27,20 +27,21 @@ data class AddressGeneric(
     val complement: String?,
     val uf: String?,
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_client")
     @JsonBackReference("clientReference")
     @JsonIgnore
     val client: ClientUser? = null,
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_collaborator")
     @JsonBackReference("collaboratorReference")
     val collaborator: Collaborator? = null
 ) {
     override fun hashCode(): Int {
-        return idAddress.hashCode()
+        return idAddress?.hashCode() ?: 0
     }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

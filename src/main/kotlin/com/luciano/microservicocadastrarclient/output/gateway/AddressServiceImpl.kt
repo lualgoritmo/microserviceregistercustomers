@@ -22,7 +22,7 @@ class AddressServiceImpl(
         val clientUser = idClient?.let { clientUserService.getClientById(it) }
         val collaborator = idCollaborator?.let { collaboratorService.findByIdCollaborator(it) }
         val newAddress = viaCepServiceImpl.getAddress(
-            cepAddress.cep!!, clientUser, collaborator = collaborator,cepAddress.numberResidence ?: ""
+            cepAddress.cep!!, client = clientUser, collaborator = collaborator,cepAddress.numberResidence ?: ""
         )
 
         clientUser?.addressClient?.let { address ->

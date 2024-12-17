@@ -1,14 +1,9 @@
 package com.luciano.microservicocadastrarclient.model
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonManagedReference
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.OneToMany
-import jakarta.persistence.CascadeType
-import jakarta.persistence.Entity
-import jakarta.persistence.Table
-import jakarta.persistence.Id
+import jakarta.persistence.*
 import jakarta.validation.constraints.Email
 import lombok.EqualsAndHashCode
 import java.time.LocalDate
@@ -34,8 +29,10 @@ data class Collaborator(
     val rg: String,
     @Email
     val email: String,
-    @OneToMany(mappedBy = "collaborator", cascade = [CascadeType.ALL], orphanRemoval = true)
-    @JsonManagedReference("collaboratorReference")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonBackReference("collaboratorReference")
+    val schedule: MutableSet<Schedule>?= mutableSetOf(),
+    @ManyToMany(mappedBy = "collaborator", cascade = [CascadeType.ALL])
     var addressCollaborator: MutableSet<AddressGeneric>
 )
 
