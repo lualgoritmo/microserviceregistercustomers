@@ -5,15 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.luciano.microservicocadastrarclient.model.AddressGeneric
 import com.luciano.microservicocadastrarclient.model.ClientUser
 import com.luciano.microservicocadastrarclient.model.Collaborator
-import com.luciano.microservicocadastrarclient.service.dto.AddressGenericResponse
-import com.luciano.microservicocadastrarclient.service.service.ViaCepService
+import com.luciano.microservicocadastrarclient.service.dtoservice.AddressGenericResponse
+import com.luciano.microservicocadastrarclient.service.ViaCepService
 import jakarta.ws.rs.ProcessingException
 import jakarta.ws.rs.client.Client
 import jakarta.ws.rs.client.WebTarget
 import jakarta.ws.rs.core.MediaType
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class ViaCepServiceImpl(

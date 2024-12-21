@@ -3,11 +3,12 @@ package com.luciano.microservicocadastrarclient.input.dto.shedule.request
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.luciano.microservicocadastrarclient.input.dto.address.CreateAddressClient
 import com.luciano.microservicocadastrarclient.input.dto.client.CreateClientUser
-import com.luciano.microservicocadastrarclient.input.dto.collaborator.CreateCollaborator
+import com.luciano.microservicocadastrarclient.input.dto.shedule.response.CollaboratorScheduleResponse
 import com.luciano.microservicocadastrarclient.model.Schedule
 import jakarta.validation.constraints.NotBlank
 import java.math.BigDecimal
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 import java.util.*
 
@@ -20,15 +21,15 @@ data class CreateSchedule(
     @NotBlank
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     val serviceDate: LocalDate,
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
+    val registrationDate: LocalDateTime= LocalDateTime.now(),
     @NotBlank
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     val serviceHours: LocalTime,
-    val client: UUID,
-    val addressClient: UUID,
     val collaborators: List<UUID> = listOf()
 ) {
 
-    fun toEntity(client:CreateClientUser, addressGeneric: CreateAddressClient, collaborators: List<CreateCollaborator>): Schedule = Schedule(
+    fun toEntity(client:CreateClientUser, addressGeneric: CreateAddressClient, collaborators: List<CollaboratorScheduleResponse>): Schedule = Schedule(
         idShedule = this.idService,
         description = this.description,
         price = this.price,
@@ -46,12 +47,8 @@ data class CreateSchedule(
                 price = schedule.price,
                 serviceDate = schedule.serviceDate,
                 serviceHours = schedule.serviceHours,
-                client = schedule.client.idClientUser ?: throw IllegalArgumentException("Client id não pode ser nulo"),
-                addressClient = schedule.address.idAddress ?: throw IllegalArgumentException("IdAddress não pode ser nulo"),
                 collaborators = schedule.collaborator.map { it.idCollaborator ?: throw IllegalArgumentException("Colaboraor id não pode ser nulo") }
             )
     }
 
 }
-
-

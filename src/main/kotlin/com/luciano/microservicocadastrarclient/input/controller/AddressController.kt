@@ -4,7 +4,7 @@ import com.luciano.microservicocadastrarclient.input.dto.address.CepAddress
 import com.luciano.microservicocadastrarclient.input.dto.address.CreateAddressClient
 import com.luciano.microservicocadastrarclient.input.dto.address.CreateAddressCollaborator
 import com.luciano.microservicocadastrarclient.input.dto.address.UpdateAddressClient
-import com.luciano.microservicocadastrarclient.service.service.AddressService
+import com.luciano.microservicocadastrarclient.service.AddressService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

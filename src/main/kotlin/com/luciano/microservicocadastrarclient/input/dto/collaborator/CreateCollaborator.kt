@@ -3,7 +3,6 @@ package com.luciano.microservicocadastrarclient.input.dto.collaborator
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.luciano.microservicocadastrarclient.model.AddressGeneric
 import com.luciano.microservicocadastrarclient.model.Collaborator
-import com.luciano.microservicocadastrarclient.model.Schedule
 import jakarta.validation.constraints.Email
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -15,7 +14,7 @@ data class CreateCollaborator(
     val cpf: String,
     val cep: String,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    val dateOfBirth: LocalDate,
+    val dateOfBirth: LocalDate?,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     val registrationDate: LocalDateTime = LocalDateTime.now(),
     val numberResidence: String?,
@@ -23,8 +22,7 @@ data class CreateCollaborator(
     val rg: String,
     @Email
     val email: String,
-    val schedule: MutableSet<Schedule>?= mutableSetOf(),
-    val addressClient: Set<AddressGeneric>? = null
+    val addressCollaborator: Set<AddressGeneric>?
 
 ) {
     fun toEntity():Collaborator = Collaborator(
@@ -46,12 +44,12 @@ data class CreateCollaborator(
             nameSurname = collaborator.nameSurname,
             cpf = collaborator.cpf,
             cep = collaborator.cep,
-            dateOfBirth = collaborator.dateOfBirth,
+            dateOfBirth = collaborator?.dateOfBirth,
             phone = collaborator.phone,
             numberResidence = collaborator.numberResidence,
             rg = collaborator.rg,
             email = collaborator.email,
-            addressClient = collaborator.addressCollaborator.map { address ->
+            addressCollaborator = collaborator.addressCollaborator.map { address ->
                 AddressGeneric(
                     idAddress = address.idAddress,
                     cep = address.cep,
@@ -76,7 +74,7 @@ data class CreateCollaborator(
                     numberResidence = collaborator.numberResidence,
                     rg = collaborator.rg,
                     email = collaborator.email,
-                    addressClient = mutableSetOf()
+                    addressCollaborator = mutableSetOf()
                 )
             }
 

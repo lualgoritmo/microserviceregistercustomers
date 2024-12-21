@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mockito.verify
 import org.mockito.kotlin.any
-import org.mockito.kotlin.eq
 import org.mockito.kotlin.times
 import org.mockito.kotlin.whenever
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -40,7 +39,7 @@ class AddressControllerTest {
     fun `when POST createAddress is called, it should create a new address and return 201 status`() {
 
         val idClient = UUID.randomUUID()
-        val cepAddress = CepAddress(cep = "17201110", numberResidence = "51", client = client)
+        val cepAddress = CepAddress(cep = "17201110", collaborator = null, numberResidence = "51", client = client)
 
         val createdAddress = AddressGeneric(
             idAddress = UUID.randomUUID(),
@@ -53,9 +52,9 @@ class AddressControllerTest {
             client = client
         )
 
-        whenever(addressServiceImpl.createAddress(eq(idClient), any())).thenReturn(createdAddress)
+        whenever(addressServiceImpl.createAddress(idClient = idClient, cepAddress = cepAddress)).thenReturn(createdAddress)
 
-        val response = addressController.createAddress(idClient, cepAddress)
+        val response = addressController.createAddressClient(idClient, cepAddress)
 
         val addressResponse = response.body
 
@@ -64,7 +63,7 @@ class AddressControllerTest {
         assertEquals(cepAddress.cep, addressResponse?.cep)
         assertEquals(cepAddress.numberResidence, addressResponse?.numberResidence)
 
-        verify(addressServiceImpl, times(1)).createAddress(eq(idClient), any())
+        verify(addressServiceImpl, times(1)).createAddress(idClient = idClient, cepAddress = cepAddress)
     }
     @Test
     fun `when GET getAllListAddress is called, it should return list address`() {

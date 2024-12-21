@@ -3,10 +3,10 @@ package com.luciano.microservicocadastrarclient.output.gateway
 import com.luciano.microservicocadastrarclient.input.dto.shedule.request.CreateSchedule
 import com.luciano.microservicocadastrarclient.model.Schedule
 import com.luciano.microservicocadastrarclient.repository.ServiceToDoRepository
-import com.luciano.microservicocadastrarclient.service.service.AddressService
-import com.luciano.microservicocadastrarclient.service.service.CadastreClient
-import com.luciano.microservicocadastrarclient.service.service.CollaboratorService
-import com.luciano.microservicocadastrarclient.service.service.ScheduleService
+import com.luciano.microservicocadastrarclient.service.AddressService
+import com.luciano.microservicocadastrarclient.service.CadastreClient
+import com.luciano.microservicocadastrarclient.service.CollaboratorService
+import com.luciano.microservicocadastrarclient.service.ScheduleService
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 import java.util.*
@@ -34,7 +34,7 @@ class ScheduleServiceImpl(
             throw RuntimeException("Já existe um agendamento para este cliente no mesmo endereço e data.")
         }
 
-        val listCollaborators = collaboratorService.findAllById(scheduleDTO.collaborators)
+        val listCollaborators = scheduleDTO.collaborators.let { collaboratorService.findAllById(it) }
 
         if(listCollaborators.isEmpty()) {
             throw RuntimeException("Lista de colaboradores vazia")
@@ -51,7 +51,9 @@ class ScheduleServiceImpl(
         )
         return serviceToDoRepository.save(service)
     }
-    override fun getServiceById(idServiceToDo: UUID): ScheduleService {
-        TODO("Not yet implemented")
+    override fun getServiceById(idServiceToDo: UUID): Schedule {
+        return serviceToDoRepository.findById(idServiceToDo).orElseThrow {
+            throw RuntimeException("O id do serviço não existe $idServiceToDo")
+        }
     }
 }

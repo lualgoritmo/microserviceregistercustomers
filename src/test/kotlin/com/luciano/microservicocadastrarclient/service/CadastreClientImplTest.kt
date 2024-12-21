@@ -3,7 +3,6 @@ import com.luciano.microservicocadastrarclient.model.AddressGeneric
 import com.luciano.microservicocadastrarclient.model.ClientUser
 import com.luciano.microservicocadastrarclient.output.gateway.CadastreClientImpl
 import com.luciano.microservicocadastrarclient.output.gateway.ViaCepServiceImpl
-import com.luciano.microservicocadastrarclient.repository.AddressRepository
 import com.luciano.microservicocadastrarclient.repository.ClientUserRepository
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
@@ -26,9 +25,6 @@ class CadastreClientImplTest {
     lateinit var clientRepository: ClientUserRepository
 
     @Mock
-    lateinit var addressRepository: AddressRepository
-
-    @Mock
     lateinit var viaCep: ViaCepServiceImpl
 
     private lateinit var clientUserService: CadastreClientImpl
@@ -39,7 +35,7 @@ class CadastreClientImplTest {
     @BeforeEach
     fun setUp() {
 
-        clientUserService = CadastreClientImpl(clientRepository, viaCep, addressRepository)
+        clientUserService = CadastreClientImpl(clientRepository, viaCep)
 
 
         client = ClientUser(
@@ -73,22 +69,20 @@ class CadastreClientImplTest {
 
 
         whenever(clientRepository.save(client)).thenReturn(client)
-        whenever(addressRepository.save(address)).thenReturn(address)
-        whenever(viaCep.getAddress("17201110", client, "51")).thenReturn(address)
+        whenever(viaCep.getAddress("17201110", client, collaborator = null, numberResidence = "51")).thenReturn(address)
         val result = clientUserService.cadastreClient(client)
 
         assertNotNull(result)
         assertEquals(client.cep, result.cep)
-        assertTrue(result.addressClient!!.isNotEmpty())
-        assertEquals(1, result.addressClient?.size)
+        assertTrue(result.addressClient.isNotEmpty())
+        assertEquals(1, result.addressClient.size)
 
-        val savedAddress = result.addressClient?.first()
-        assertEquals(address.cep, savedAddress?.cep)
-        assertEquals(address.city, savedAddress?.city)
-        assertEquals(address.uf, savedAddress?.uf)
-        assertEquals(client, savedAddress?.client)
+        val savedAddress = result.addressClient.first()
+        assertEquals(address.cep, savedAddress.cep)
+        assertEquals(address.city, savedAddress.city)
+        assertEquals(address.uf, savedAddress.uf)
+        assertEquals(client, savedAddress.client)
 
         verify(clientRepository, times(1)).save(any())
-        verify(addressRepository, times(1)).save(any())
     }
 }

@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Table
 import jakarta.persistence.Id
 import jakarta.persistence.CascadeType
+import jakarta.persistence.Column
 import jakarta.persistence.OneToMany
 import jakarta.validation.constraints.Email
 import lombok.EqualsAndHashCode
@@ -37,6 +38,7 @@ data class ClientUser(
     val rg: String,
 
     @Email
+    @Column(unique = true, nullable = false)
     val email: String,
 
     @OneToMany(mappedBy = "client", cascade = [CascadeType.ALL], orphanRemoval = true)

@@ -4,14 +4,14 @@ import com.luciano.microservicocadastrarclient.input.dto.address.CepAddress
 import com.luciano.microservicocadastrarclient.input.dto.client.UpdateClient
 import com.luciano.microservicocadastrarclient.model.AddressGeneric
 import com.luciano.microservicocadastrarclient.model.ClientUser
-import com.luciano.microservicocadastrarclient.service.dto.AddressGenericResponse
+import com.luciano.microservicocadastrarclient.service.dtoservice.AddressGenericResponse
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
 fun returnClientCreate(): ClientUser {
-    client.addressClient!!.add(address)
+    client.addressClient.add(address)
     return client
 }
 

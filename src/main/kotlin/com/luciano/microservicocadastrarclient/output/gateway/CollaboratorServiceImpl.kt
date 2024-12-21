@@ -1,9 +1,8 @@
 package com.luciano.microservicocadastrarclient.output.gateway
 
 import com.luciano.microservicocadastrarclient.model.Collaborator
-import com.luciano.microservicocadastrarclient.repository.AddressRepository
 import com.luciano.microservicocadastrarclient.repository.CollaboratorRepository
-import com.luciano.microservicocadastrarclient.service.service.CollaboratorService
+import com.luciano.microservicocadastrarclient.service.CollaboratorService
 import jakarta.transaction.Transactional
 import javassist.NotFoundException
 import org.springframework.stereotype.Service

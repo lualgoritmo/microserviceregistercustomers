@@ -2,7 +2,7 @@ package com.luciano.microservicocadastrarclient.input.controller
 
 import com.luciano.microservicocadastrarclient.input.dto.shedule.request.CreateSchedule
 import com.luciano.microservicocadastrarclient.input.dto.shedule.response.ScheduleResponse
-import com.luciano.microservicocadastrarclient.service.service.ScheduleService
+import com.luciano.microservicocadastrarclient.service.ScheduleService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

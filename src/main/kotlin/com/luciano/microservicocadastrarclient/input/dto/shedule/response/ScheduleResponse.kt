@@ -1,8 +1,7 @@
 package com.luciano.microservicocadastrarclient.input.dto.shedule.response
 
-import com.luciano.microservicocadastrarclient.input.dto.address.CreateAddressClient
+import com.fasterxml.jackson.annotation.JsonFormat
 import com.luciano.microservicocadastrarclient.input.dto.client.CreateClientUser
-import com.luciano.microservicocadastrarclient.input.dto.collaborator.CreateCollaborator
 import com.luciano.microservicocadastrarclient.model.Schedule
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -13,11 +12,12 @@ data class ScheduleResponse(
     val idService: UUID,
     val description: String,
     val price: BigDecimal,
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     val serviceDate: LocalDate,
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     val serviceHours: LocalTime,
     val client: CreateClientUser,
-    val addressClient: CreateAddressClient,
-    val collaborators: List<CreateCollaborator>
+    val collaborators: List<CollaboratorScheduleResponse>
 ) {
     companion object {
         fun fromEntity(schedule: Schedule): ScheduleResponse = ScheduleResponse(
@@ -27,9 +27,8 @@ data class ScheduleResponse(
             serviceDate = schedule.serviceDate,
             serviceHours = schedule.serviceHours,
             client = CreateClientUser.fromEntity(schedule.client),
-            addressClient = CreateAddressClient.fromEntity(schedule.address),
-            collaborators = schedule.collaborator.map { CreateCollaborator.fromEntity(it) }
+            collaborators = schedule.collaborator.map { CollaboratorScheduleResponse.fromEntity(it) }
         )
     }
-}
 
+}

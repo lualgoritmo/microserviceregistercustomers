@@ -3,6 +3,7 @@ package com.luciano.microservicocadastrarclient.input.dto.client
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.luciano.microservicocadastrarclient.model.AddressGeneric
 import com.luciano.microservicocadastrarclient.model.ClientUser
+import jakarta.persistence.Column
 import jakarta.validation.constraints.Email
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -20,6 +21,7 @@ data class ClientWithAddress(
     val phone: String,
     val rg: String,
     @Email
+    @Column(unique = true, nullable = false)
     val email: String,
     var addressClient: MutableSet<AddressGeneric>
 ) {

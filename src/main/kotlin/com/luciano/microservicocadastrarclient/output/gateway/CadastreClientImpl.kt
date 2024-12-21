@@ -4,7 +4,7 @@ import com.luciano.microservicocadastrarclient.input.dto.client.UpdateClient
 import com.luciano.microservicocadastrarclient.model.ClientUser
 import com.luciano.microservicocadastrarclient.repository.AddressRepository
 import com.luciano.microservicocadastrarclient.repository.ClientUserRepository
-import com.luciano.microservicocadastrarclient.service.service.CadastreClient
+import com.luciano.microservicocadastrarclient.service.CadastreClient
 import jakarta.transaction.Transactional
 import org.hibernate.Hibernate
 import org.springframework.stereotype.Service
@@ -14,8 +14,7 @@ import java.util.*
 @Service
 class CadastreClientImpl(
     private val clientRepository: ClientUserRepository,
-    private val viaCep: ViaCepServiceImpl,
-    private val addressRepository: AddressRepository
+    private val viaCep: ViaCepServiceImpl
 ) : CadastreClient {
 
     @Transactional

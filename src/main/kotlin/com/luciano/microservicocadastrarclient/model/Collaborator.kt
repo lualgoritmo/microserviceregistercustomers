@@ -2,7 +2,6 @@ package com.luciano.microservicocadastrarclient.model
 
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonFormat
-import com.fasterxml.jackson.annotation.JsonManagedReference
 import jakarta.persistence.*
 import jakarta.validation.constraints.Email
 import lombok.EqualsAndHashCode
@@ -19,7 +18,7 @@ data class Collaborator(
     val idCollaborator: UUID? = null,
     val nameSurname: String,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    val dateOfBirth: LocalDate,
+    val dateOfBirth: LocalDate?,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     val registrationDate: LocalDateTime = LocalDateTime.now(),
     val cpf: String,
@@ -28,6 +27,7 @@ data class Collaborator(
     val phone: String,
     val rg: String,
     @Email
+    @Column(unique = true, nullable = false)
     val email: String,
     @ManyToMany(fetch = FetchType.LAZY)
     @JsonBackReference("collaboratorReference")
@@ -35,5 +35,3 @@ data class Collaborator(
     @ManyToMany(mappedBy = "collaborator", cascade = [CascadeType.ALL])
     var addressCollaborator: MutableSet<AddressGeneric>
 )
-
-

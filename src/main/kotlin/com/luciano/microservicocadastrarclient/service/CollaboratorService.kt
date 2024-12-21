@@ -1,4 +1,4 @@
-package com.luciano.microservicocadastrarclient.service.service
+package com.luciano.microservicocadastrarclient.service
 
 import com.luciano.microservicocadastrarclient.model.Collaborator
 import java.util.UUID

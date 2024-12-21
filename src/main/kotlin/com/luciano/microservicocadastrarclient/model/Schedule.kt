@@ -35,4 +35,3 @@ data class Schedule(
     @JoinColumn(name = "id_address")
     val address: AddressGeneric
 )
-

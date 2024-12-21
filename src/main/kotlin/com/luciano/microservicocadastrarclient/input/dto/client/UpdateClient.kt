@@ -1,6 +1,7 @@
 package com.luciano.microservicocadastrarclient.input.dto.client
 
 import com.luciano.microservicocadastrarclient.model.ClientUser
+import jakarta.persistence.Column
 import jakarta.validation.constraints.Email
 
 data class UpdateClient(
@@ -8,6 +9,7 @@ data class UpdateClient(
     val phone: String,
     val numberResidence: String,
     @Email
+    @Column(unique = true, nullable = false)
     val email: String
 ) {
     fun toEntity(existingClient: ClientUser): ClientUser = existingClient.copy(

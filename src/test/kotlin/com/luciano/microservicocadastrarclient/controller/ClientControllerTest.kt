@@ -81,7 +81,7 @@ class ClientControllerTest {
             null
         )
 
-        clientUserEntity.addressClient?.add(addressClient)
+        clientUserEntity.addressClient.add(addressClient)
 
         val createClientUser = CreateClientUser(
             nameSurname = "Terceiro Teste",
