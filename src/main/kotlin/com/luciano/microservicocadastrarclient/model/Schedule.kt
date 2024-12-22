@@ -2,6 +2,7 @@ package com.luciano.microservicocadastrarclient.model
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonManagedReference
+import com.luciano.microservicocadastrarclient.output.utilenum.ScheduleTask
 import jakarta.persistence.*
 import lombok.EqualsAndHashCode
 import java.math.BigDecimal
@@ -22,7 +23,7 @@ data class Schedule(
     val serviceDate: LocalDate,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     val serviceHours: LocalTime,
-
+    val scheduleTask: ScheduleTask,
     @ManyToMany(mappedBy = "schedule", cascade = [CascadeType.ALL])
     @JsonManagedReference("scheduleReference")
     val collaborator: List<Collaborator> = listOf(),

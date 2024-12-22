@@ -18,10 +18,9 @@ import java.util.*
 class ScheduleController(
     private val scheduleService: ScheduleService
 ) {
-    @PostMapping("/create-schedule/{idClient}/{idAddress}/{idCollaborator}")
+    @PostMapping("/create-schedule/{idClient}/{idAddress}")
     fun createShedule(@PathVariable("idClient", required = true) idClient: UUID,
                       @PathVariable("idAddress", required = true) idAddress: UUID,
-                      @PathVariable("idCollaborator", required = true) idCollaborator: UUID,
                       @Valid @RequestBody schedule: CreateSchedule
     ): ResponseEntity<ScheduleResponse> {
         val createSchedule = scheduleService.createSchedule(

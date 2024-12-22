@@ -5,6 +5,7 @@ import com.luciano.microservicocadastrarclient.input.dto.address.CreateAddressCl
 import com.luciano.microservicocadastrarclient.input.dto.client.CreateClientUser
 import com.luciano.microservicocadastrarclient.input.dto.shedule.response.CollaboratorScheduleResponse
 import com.luciano.microservicocadastrarclient.model.Schedule
+import com.luciano.microservicocadastrarclient.output.utilenum.ScheduleTask
 import jakarta.validation.constraints.NotBlank
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -26,18 +27,19 @@ data class CreateSchedule(
     @NotBlank
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     val serviceHours: LocalTime,
-    val collaborators: List<UUID> = listOf()
+    val scheduleTask: ScheduleTask
+//    val collaborators: List<UUID> = listOf()
 ) {
-
     fun toEntity(client:CreateClientUser, addressGeneric: CreateAddressClient, collaborators: List<CollaboratorScheduleResponse>): Schedule = Schedule(
         idShedule = this.idService,
         description = this.description,
         price = this.price,
         serviceDate = this.serviceDate,
         serviceHours = this.serviceHours,
+        scheduleTask = ScheduleTask.PENDING,
         client = client.toEntity(),
-        address = addressGeneric.toEntity(),
-        collaborator = collaborators.map { it.toEntity() }
+        address = addressGeneric.toEntity()
+//        collaborator = collaborators.map { it.toEntity() }
     )
     companion object {
         fun fromEntity(schedule: Schedule): CreateSchedule =
@@ -47,7 +49,8 @@ data class CreateSchedule(
                 price = schedule.price,
                 serviceDate = schedule.serviceDate,
                 serviceHours = schedule.serviceHours,
-                collaborators = schedule.collaborator.map { it.idCollaborator ?: throw IllegalArgumentException("Colaboraor id não pode ser nulo") }
+                scheduleTask = ScheduleTask.PENDING,
+                //collaborators = schedule.collaborator.map { it.idCollaborator ?: throw IllegalArgumentException("Colaboraor id não pode ser nulo") }
             )
     }
 

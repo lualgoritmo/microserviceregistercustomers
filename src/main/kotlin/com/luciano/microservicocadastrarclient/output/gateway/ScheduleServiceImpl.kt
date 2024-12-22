@@ -2,12 +2,15 @@ package com.luciano.microservicocadastrarclient.output.gateway
 
 import com.luciano.microservicocadastrarclient.input.dto.shedule.request.CreateSchedule
 import com.luciano.microservicocadastrarclient.model.Schedule
+import com.luciano.microservicocadastrarclient.output.utilenum.ScheduleTask
+import com.luciano.microservicocadastrarclient.output.utilenum.ServiceStatus.MAX_COLLABORATORS
 import com.luciano.microservicocadastrarclient.repository.ServiceToDoRepository
 import com.luciano.microservicocadastrarclient.service.AddressService
 import com.luciano.microservicocadastrarclient.service.CadastreClient
 import com.luciano.microservicocadastrarclient.service.CollaboratorService
 import com.luciano.microservicocadastrarclient.service.ScheduleService
 import jakarta.transaction.Transactional
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -21,31 +24,42 @@ class ScheduleServiceImpl(
     @Transactional
     override fun createSchedule(scheduleDTO: CreateSchedule, idAddress: UUID, idClient: UUID): Schedule {
         val client = clientService.getClientById(idClient)
-
         val address = addressService.getByIdAddress(idAddress)
-        val existingSchedule = serviceToDoRepository
-            .findByClientAndAddressAndServiceDate(
-                client = client,
-                address = address,
-                serviceDate = scheduleDTO.serviceDate
-            )
-
-        if (existingSchedule != null) {
-            throw RuntimeException("Já existe um agendamento para este cliente no mesmo endereço e data.")
+        if(serviceToDoRepository.existsByClientAndAddressAndDateAndTime(
+            client = client,
+            address = address,
+            serviceDate = scheduleDTO.serviceDate,
+            serviceHours = scheduleDTO.serviceHours
+        )) {
+            throw RuntimeException("Já existe um agendamento para este cliente no mesmo endereço, data e horário.")
         }
 
-        val listCollaborators = scheduleDTO.collaborators.let { collaboratorService.findAllById(it) }
+//        val existingSchedule = serviceToDoRepository
+//            .findByClientAndAddressAndServiceDateAndServiceHours(
+//                client = client,
+//                address = address,
+//                serviceDate = scheduleDTO.serviceDate,
+//                serviceHours = scheduleDTO.serviceHours
+//            )
 
-        if(listCollaborators.isEmpty()) {
-            throw RuntimeException("Lista de colaboradores vazia")
+        val listCollaborators = collaboratorService.findAvailableCollaborators(
+            serviceDate = scheduleDTO.serviceDate,
+            serviceHours = scheduleDTO.serviceHours,
+            pageAble = PageRequest.of(0, Int.MAX_VALUE)
+        )
+
+        if(listCollaborators.size < MAX_COLLABORATORS) {
+            throw RuntimeException("Nenhum colaborador disponível para essa data e horário")
         }
+        val selectedCollaborator = listCollaborators.take(MAX_COLLABORATORS)
 
         val service = Schedule(
             description = scheduleDTO.description,
             price = scheduleDTO.price,
             serviceDate = scheduleDTO.serviceDate,
             serviceHours = scheduleDTO.serviceHours,
-            collaborator = listCollaborators,
+            scheduleTask = ScheduleTask.PENDING,
+            collaborator = selectedCollaborator,
             client = client,
             address = address
         )

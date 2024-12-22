@@ -3,6 +3,7 @@ package com.luciano.microservicocadastrarclient.input.dto.shedule.response
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.luciano.microservicocadastrarclient.input.dto.client.CreateClientUser
 import com.luciano.microservicocadastrarclient.model.Schedule
+import com.luciano.microservicocadastrarclient.output.utilenum.ScheduleTask
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalTime
@@ -16,6 +17,7 @@ data class ScheduleResponse(
     val serviceDate: LocalDate,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     val serviceHours: LocalTime,
+    val scheduleTask: ScheduleTask,
     val client: CreateClientUser,
     val collaborators: List<CollaboratorScheduleResponse>
 ) {
@@ -26,6 +28,7 @@ data class ScheduleResponse(
             price = schedule.price,
             serviceDate = schedule.serviceDate,
             serviceHours = schedule.serviceHours,
+            scheduleTask = ScheduleTask.PENDING,
             client = CreateClientUser.fromEntity(schedule.client),
             collaborators = schedule.collaborator.map { CollaboratorScheduleResponse.fromEntity(it) }
         )
