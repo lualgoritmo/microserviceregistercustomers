@@ -36,7 +36,7 @@ class AddressController(
         @RequestBody @Valid cepAddress: CepAddress
     ): ResponseEntity<CreateAddressCollaborator> {
         val address = addressService.createAddress(cepAddress = cepAddress, idCollaborator = idCollaborator)
-        return ResponseEntity.status(HttpStatus.CREATED).body(CreateAddressCollaborator.fromEntity(addressClient = address))
+        return ResponseEntity.status(HttpStatus.CREATED).body(CreateAddressCollaborator.fromEntity(address = address))
     }
     @GetMapping("/alladdress")
     fun getAllAddress(): ResponseEntity<List<CreateAddressClient>> {

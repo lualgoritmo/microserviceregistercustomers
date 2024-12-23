@@ -28,9 +28,8 @@ data class CreateSchedule(
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     val serviceHours: LocalTime,
     val scheduleTask: ScheduleTask
-//    val collaborators: List<UUID> = listOf()
 ) {
-    fun toEntity(client:CreateClientUser, addressGeneric: CreateAddressClient, collaborators: List<CollaboratorScheduleResponse>): Schedule = Schedule(
+    fun toEntity(client:CreateClientUser, addressGeneric: CreateAddressClient): Schedule = Schedule(
         idShedule = this.idService,
         description = this.description,
         price = this.price,
@@ -39,7 +38,6 @@ data class CreateSchedule(
         scheduleTask = ScheduleTask.PENDING,
         client = client.toEntity(),
         address = addressGeneric.toEntity()
-//        collaborator = collaborators.map { it.toEntity() }
     )
     companion object {
         fun fromEntity(schedule: Schedule): CreateSchedule =
@@ -49,8 +47,7 @@ data class CreateSchedule(
                 price = schedule.price,
                 serviceDate = schedule.serviceDate,
                 serviceHours = schedule.serviceHours,
-                scheduleTask = ScheduleTask.PENDING,
-                //collaborators = schedule.collaborator.map { it.idCollaborator ?: throw IllegalArgumentException("Colaboraor id não pode ser nulo") }
+                scheduleTask = ScheduleTask.PENDING
             )
     }
 

@@ -1,19 +1,18 @@
 package com.luciano.microservicocadastrarclient.input.dto.address
 
 import com.luciano.microservicocadastrarclient.model.AddressGeneric
-import com.luciano.microservicocadastrarclient.model.ClientUser
-import com.luciano.microservicocadastrarclient.model.Collaborator
 import java.util.UUID
 
 class CreateAddressCollaborator(
+    val idCollaborator: UUID?,
+    val nameCollaborator: String?,
     val idAddress: UUID? = null,
     val cep: String?,
     val road: String? = null,
     val city: String? = null,
     val numberResidence: String?,
     val complement: String?=null,
-    val uf: String?=null,
-    val collaborator: Collaborator?
+    val uf: String?=null
 ) {
     fun toEntity(): AddressGeneric = AddressGeneric(
         idAddress = this.idAddress,
@@ -22,21 +21,21 @@ class CreateAddressCollaborator(
         city = this.city,
         numberResidence = this.numberResidence,
         complement = this.complement,
-        uf = this.uf,
-        collaborator = this.collaborator
+        uf = this.uf
     )
 
     companion object {
-        fun fromEntity(addressClient: AddressGeneric): CreateAddressCollaborator {
+        fun fromEntity(address: AddressGeneric): CreateAddressCollaborator {
             return CreateAddressCollaborator(
-                idAddress = addressClient.idAddress,
-                cep = addressClient.cep,
-                road = addressClient.road,
-                city = addressClient.city,
-                numberResidence = addressClient.numberResidence,
-                complement = addressClient.complement,
-                uf = addressClient.uf,
-                collaborator = addressClient.collaborator
+                idCollaborator = address.collaborator?.idCollaborator,
+                nameCollaborator = address.collaborator?.nameSurname,
+                idAddress = address.idAddress,
+                cep = address.cep,
+                road = address.road,
+                city = address.city,
+                numberResidence = address.numberResidence,
+                complement = address.complement,
+                uf = address.uf
             )
         }
     }

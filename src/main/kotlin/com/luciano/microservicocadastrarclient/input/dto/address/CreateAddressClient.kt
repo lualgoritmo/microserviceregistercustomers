@@ -1,18 +1,18 @@
 package com.luciano.microservicocadastrarclient.input.dto.address
 
 import com.luciano.microservicocadastrarclient.model.AddressGeneric
-import com.luciano.microservicocadastrarclient.model.ClientUser
 import java.util.UUID
 
 class CreateAddressClient(
     val idAddress: UUID? = null,
+    val idClient: UUID?,
+    val nameClient: String?,
     val cep: String?,
     val road: String? = null,
     val city: String? = null,
     val numberResidence: String?,
     val complement: String?=null,
     val uf: String?=null,
-    val client: ClientUser? = null
 ) {
     fun toEntity(): AddressGeneric = AddressGeneric(
         idAddress = this.idAddress,
@@ -21,21 +21,20 @@ class CreateAddressClient(
         city = this.city,
         numberResidence = this.numberResidence,
         complement = this.complement,
-        uf = this.uf,
-        client = this.client
+        uf = this.uf
     )
-
     companion object {
         fun fromEntity(addressClient: AddressGeneric): CreateAddressClient {
             return CreateAddressClient(
                 idAddress = addressClient.idAddress,
+                idClient = addressClient.client?.idClientUser,
+                nameClient = addressClient.client?.nameSurname,
                 cep = addressClient.cep,
                 road = addressClient.road,
                 city = addressClient.city,
                 numberResidence = addressClient.numberResidence,
                 complement = addressClient.complement,
-                uf = addressClient.uf,
-                client = addressClient.client
+                uf = addressClient.uf
             )
         }
     }
