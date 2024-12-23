@@ -7,6 +7,7 @@ import com.luciano.microservicocadastrarclient.repository.ClientUserRepository
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.Mockito.times
@@ -67,7 +68,6 @@ class CadastreClientImplTest {
     @Test
     fun `when cadastreClient is called, it should return created client with address`() {
 
-
         whenever(clientRepository.save(client)).thenReturn(client)
         whenever(viaCep.getAddress("17201110", client, collaborator = null, numberResidence = "51")).thenReturn(address)
         val result = clientUserService.cadastreClient(client)
@@ -85,4 +85,42 @@ class CadastreClientImplTest {
 
         verify(clientRepository, times(1)).save(any())
     }
+    @Test
+    fun `when getClientById is called,it should return one client id`() {
+
+        whenever(clientRepository.findById(client.idClientUser!!)).thenReturn(Optional.of(client))
+
+        val result = clientUserService.getClientById(client.idClientUser!!)
+
+        assertNotNull(result)
+        assertEquals(client.idClientUser, result.idClientUser)
+
+    }
+    @Test
+    fun `returns exception when getClientById is null`() {
+        val invalidId = UUID.randomUUID()
+
+        whenever(clientRepository.findById(any())).thenReturn(Optional.empty())
+
+        val exception = assertThrows<IllegalArgumentException> {
+            clientUserService.getClientById(invalidId)
+        }
+        assertEquals("Cliente com ID $invalidId não encontrado.", exception.message)
+
+        verify(clientRepository, times(1)).findById(invalidId)
+    }
+
+    @Test
+    fun `when getAllListClients is called, it should return list of clients`() {
+
+        whenever(clientRepository.findAll()).thenReturn(listOf(client, client))
+        val result = clientUserService.getAllListClients()
+
+        assertNotNull(result)
+        assertEquals(2, result.size)
+        assertEquals(listOf(client, client), result)
+
+        verify(clientRepository, times(1)).findAll()
+    }
+
 }
