@@ -1,6 +1,5 @@
 server:
   port: 8081
-spring:
   name: microservicoecadastrarclient
   datasource:
     url: jdbc:postgresql://localhost:5433/client
@@ -15,16 +14,21 @@ spring:
     hibernate:
       ddl-auto: update
       format_sql: true
+output:
+  ansi:
+    enabled: ALWAYS
+
 logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
-  main:
-    web-application-type: servlet
-  boot:
-    run:
-      jvmArguments: --add-opens=java.base/java.time=ALL-UNNAMED
+main:
+  web-application-type: servlet
+
+boot:
+  run:
+    jvmArguments: --add-opens=java.base/java.time=ALL-UNNAMED
 
 #  http:
 #    encoding:
