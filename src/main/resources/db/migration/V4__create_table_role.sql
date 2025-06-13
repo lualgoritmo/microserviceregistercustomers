@@ -1,0 +1,5 @@
+CREATE TABLE role (
+  id UUID NOT NULL,
+   nome VARCHAR(255),
+   CONSTRAINT pk_role PRIMARY KEY (id)
+);

@@ -3,10 +3,13 @@ package com.luciano.microservicocadastrarclient.output.gateway
 import com.luciano.microservicocadastrarclient.model.Collaborator
 import com.luciano.microservicocadastrarclient.repository.CollaboratorRepository
 import com.luciano.microservicocadastrarclient.service.CollaboratorService
+import com.luciano.microservicocadastrarclient.service.UserDetail
 import jakarta.transaction.Transactional
 import javassist.NotFoundException
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
+import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.time.LocalTime
@@ -16,7 +19,13 @@ import java.util.UUID
 class CollaboratorServiceImpl(
     private val collaboratorRepository: CollaboratorRepository,
     private val viaCepServiceImpl: ViaCepServiceImpl
-): CollaboratorService {
+): UserDetailsService, CollaboratorService {
+
+    override fun loadUserByUsername(email: String?): UserDetails {
+        val userDetail = collaboratorRepository.findByEmail(email) ?:
+        throw RuntimeException("Colaborador não encontrado:$email")
+        return UserDetail(userDetail)
+    }
     @Transactional
     override fun createCollaborator(collaborator: Collaborator): Collaborator {
         val addressCollaborator = viaCepServiceImpl.getAddress(

@@ -15,7 +15,7 @@ import java.util.UUID
 @EqualsAndHashCode(of = ["idShedule"])
 data class Schedule(
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val idShedule: UUID? = null,
     val description: String,
     val price: BigDecimal,

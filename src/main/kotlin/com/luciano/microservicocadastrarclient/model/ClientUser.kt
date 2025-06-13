@@ -21,7 +21,7 @@ import java.util.UUID
 @EqualsAndHashCode(of = ["idClientUser"])
 data class ClientUser(
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val idClientUser: UUID? = null,
     val nameSurname: String,
 

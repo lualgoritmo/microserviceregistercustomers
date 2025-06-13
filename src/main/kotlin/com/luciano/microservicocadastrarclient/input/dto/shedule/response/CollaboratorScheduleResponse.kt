@@ -15,7 +15,8 @@ data class CollaboratorScheduleResponse(
     val phone: String,
     @Email
     @Column(unique = true, nullable = false)
-    val email: String
+    val email: String,
+    val password: String
 
 ) {
     fun toEntity(): Collaborator = Collaborator(
@@ -28,6 +29,8 @@ data class CollaboratorScheduleResponse(
         numberResidence = "",
         rg = "",
         email = this.email,
+        password = this.password,
+        roles = mutableListOf(),
         schedule = mutableSetOf(),
         addressCollaborator = mutableSetOf()
     )
@@ -38,7 +41,8 @@ data class CollaboratorScheduleResponse(
             nameSurname = collaborator.nameSurname,
             cpf = collaborator.cpf,
             phone = collaborator.phone,
-            email = collaborator.email
+            email = collaborator.email,
+            password = collaborator.password
         )
     }
 }

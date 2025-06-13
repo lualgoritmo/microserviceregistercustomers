@@ -22,6 +22,7 @@ data class CreateCollaborator(
     val rg: String,
     @Email
     val email: String,
+    val password: String,
     val addressCollaborator: Set<AddressGeneric>?
 
 ) {
@@ -35,6 +36,7 @@ data class CreateCollaborator(
         numberResidence = this.numberResidence,
         rg = this.rg,
         email = this.email,
+        password = this.password,
         schedule = mutableSetOf(),
         addressCollaborator = mutableSetOf()
     )
@@ -49,6 +51,7 @@ data class CreateCollaborator(
             numberResidence = collaborator.numberResidence,
             rg = collaborator.rg,
             email = collaborator.email,
+            password = collaborator.password,
             addressCollaborator = collaborator.addressCollaborator.map { address ->
                 AddressGeneric(
                     idAddress = address.idAddress,
@@ -74,6 +77,7 @@ data class CreateCollaborator(
                     numberResidence = collaborator.numberResidence,
                     rg = collaborator.rg,
                     email = collaborator.email,
+                    password = collaborator.password,
                     addressCollaborator = mutableSetOf()
                 )
             }

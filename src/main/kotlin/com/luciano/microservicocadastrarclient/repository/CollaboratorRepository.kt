@@ -18,5 +18,6 @@ interface CollaboratorRepository : JpaRepository<Collaborator, UUID> {
     ) 
     """)
     fun findAvailableCollaborators(serviceDate: LocalDate, serviceHours: LocalTime, pageable: Pageable): List<Collaborator>
+    fun findByEmail(collaboratorName: String?): Collaborator
 }
 

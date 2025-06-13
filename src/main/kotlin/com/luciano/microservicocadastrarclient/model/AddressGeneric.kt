@@ -18,7 +18,7 @@ import java.util.UUID
 @JsonIgnoreProperties("client")
 data class AddressGeneric(
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val idAddress: UUID? = null,
     val cep: String? = null,
     val road: String? = null,

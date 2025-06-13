@@ -1,4 +1,4 @@
-package com.luciano.microservicocadastrarclient.config
+package com.luciano.microservicocadastrarclient.configEnvironment
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

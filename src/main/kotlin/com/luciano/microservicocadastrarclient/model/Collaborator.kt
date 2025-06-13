@@ -14,7 +14,7 @@ import java.util.UUID
 @EqualsAndHashCode(of = ["idCollaborator"])
 data class Collaborator(
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val idCollaborator: UUID? = null,
     val nameSurname: String,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
@@ -29,6 +29,8 @@ data class Collaborator(
     @Email
     @Column(unique = true, nullable = false)
     val email: String,
+    val password: String,
+    val roles: MutableList<Role> = mutableListOf(),
     @ManyToMany(fetch = FetchType.LAZY)
     @JsonBackReference("collaboratorReference")
     val schedule: MutableSet<Schedule>?= mutableSetOf(),

@@ -1,16 +1,16 @@
-package com.luciano.microservicocadastrarclient.config
+package com.luciano.microservicocadastrarclient.configEnvironment
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 
 @Configuration
-class ProfileProdConfig {
+class ProfileDevConfig {
 
     @Bean
-    @Profile("prod")
-    fun prodProfile(): String {
-        return "Profile PROD"
+    @Profile("dev")
+    fun devProfile(): String {
+        return "Profile DEV"
     }
 
 }
