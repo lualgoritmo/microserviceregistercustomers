@@ -9,8 +9,8 @@ import com.luciano.microservicocadastrarclient.datamodel.returnClientCreate
 import com.luciano.microservicocadastrarclient.input.controller.ClientController
 import com.luciano.microservicocadastrarclient.input.dto.client.CreateClientUser
 import com.luciano.microservicocadastrarclient.input.dto.client.UpdateClient
-import com.luciano.microservicocadastrarclient.model.AddressGeneric
-import com.luciano.microservicocadastrarclient.model.ClientUser
+import com.luciano.microservicocadastrarclient.entity.AddressGeneric
+import com.luciano.microservicocadastrarclient.entity.ClientUser
 import com.luciano.microservicocadastrarclient.output.gateway.CadastreClientImpl
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertEquals

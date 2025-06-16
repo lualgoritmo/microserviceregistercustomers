@@ -1,8 +1,8 @@
 package com.luciano.microservicocadastrarclient.input.dto.collaborator
 
 import com.fasterxml.jackson.annotation.JsonFormat
-import com.luciano.microservicocadastrarclient.model.AddressGeneric
-import com.luciano.microservicocadastrarclient.model.Collaborator
+import com.luciano.microservicocadastrarclient.entity.AddressGeneric
+import com.luciano.microservicocadastrarclient.entity.Collaborator
 import jakarta.validation.constraints.Email
 import java.time.LocalDate
 import java.time.LocalDateTime

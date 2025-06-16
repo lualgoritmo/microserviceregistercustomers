@@ -1,8 +1,7 @@
 package com.luciano.microservicocadastrarclient.output.gateway
 
 import com.luciano.microservicocadastrarclient.input.dto.client.UpdateClient
-import com.luciano.microservicocadastrarclient.model.ClientUser
-import com.luciano.microservicocadastrarclient.repository.AddressRepository
+import com.luciano.microservicocadastrarclient.entity.ClientUser
 import com.luciano.microservicocadastrarclient.repository.ClientUserRepository
 import com.luciano.microservicocadastrarclient.service.CadastreClient
 import jakarta.transaction.Transactional

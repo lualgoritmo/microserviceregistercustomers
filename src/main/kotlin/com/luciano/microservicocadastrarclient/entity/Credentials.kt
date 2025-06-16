@@ -1,4 +1,4 @@
-package com.luciano.microservicocadastrarclient.model
+package com.luciano.microservicocadastrarclient.entity
 
 data class Credentials(
     val userName: String = "",

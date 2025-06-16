@@ -1,7 +1,7 @@
 package com.luciano.microservicocadastrarclient.service.dtoservice
 
-import com.luciano.microservicocadastrarclient.model.AddressGeneric
-import com.luciano.microservicocadastrarclient.model.ClientUser
+import com.luciano.microservicocadastrarclient.entity.AddressGeneric
+import com.luciano.microservicocadastrarclient.entity.ClientUser
 
 data class AddressGenericResponse(
     val cep: String? = null,

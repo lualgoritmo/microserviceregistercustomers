@@ -1,6 +1,6 @@
 import com.luciano.microservicocadastrarclient.datamodel.dateFormatter
-import com.luciano.microservicocadastrarclient.model.AddressGeneric
-import com.luciano.microservicocadastrarclient.model.ClientUser
+import com.luciano.microservicocadastrarclient.entity.AddressGeneric
+import com.luciano.microservicocadastrarclient.entity.ClientUser
 import com.luciano.microservicocadastrarclient.output.gateway.CadastreClientImpl
 import com.luciano.microservicocadastrarclient.output.gateway.ViaCepServiceImpl
 import com.luciano.microservicocadastrarclient.repository.ClientUserRepository

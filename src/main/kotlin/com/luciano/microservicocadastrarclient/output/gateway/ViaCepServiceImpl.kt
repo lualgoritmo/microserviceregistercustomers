@@ -2,9 +2,9 @@ package com.luciano.microservicocadastrarclient.output.gateway
 
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.luciano.microservicocadastrarclient.model.AddressGeneric
-import com.luciano.microservicocadastrarclient.model.ClientUser
-import com.luciano.microservicocadastrarclient.model.Collaborator
+import com.luciano.microservicocadastrarclient.entity.AddressGeneric
+import com.luciano.microservicocadastrarclient.entity.ClientUser
+import com.luciano.microservicocadastrarclient.entity.Collaborator
 import com.luciano.microservicocadastrarclient.service.dtoservice.AddressGenericResponse
 import com.luciano.microservicocadastrarclient.service.ViaCepService
 import jakarta.ws.rs.ProcessingException

@@ -1,7 +1,7 @@
 package com.luciano.microservicocadastrarclient.service
 
 import com.luciano.microservicocadastrarclient.input.dto.client.UpdateClient
-import com.luciano.microservicocadastrarclient.model.ClientUser
+import com.luciano.microservicocadastrarclient.entity.ClientUser
 import java.util.UUID
 
 interface CadastreClient {

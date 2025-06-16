@@ -2,7 +2,7 @@ package com.luciano.microservicocadastrarclient.input.dto.shedule.response
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.luciano.microservicocadastrarclient.input.dto.client.CreateClientUser
-import com.luciano.microservicocadastrarclient.model.Schedule
+import com.luciano.microservicocadastrarclient.entity.Schedule
 import com.luciano.microservicocadastrarclient.output.utilenum.ScheduleTask
 import java.math.BigDecimal
 import java.time.LocalDate

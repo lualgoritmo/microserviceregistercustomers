@@ -1,8 +1,8 @@
 package com.luciano.microservicocadastrarclient.input.dto.address
 
-import com.luciano.microservicocadastrarclient.model.AddressGeneric
-import com.luciano.microservicocadastrarclient.model.ClientUser
-import com.luciano.microservicocadastrarclient.model.Collaborator
+import com.luciano.microservicocadastrarclient.entity.AddressGeneric
+import com.luciano.microservicocadastrarclient.entity.ClientUser
+import com.luciano.microservicocadastrarclient.entity.Collaborator
 import java.util.UUID
 
 data class CepAddress(

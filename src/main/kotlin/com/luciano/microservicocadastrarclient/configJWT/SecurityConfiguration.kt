@@ -1,4 +1,4 @@
-package com.luciano.microservicocadastrarclient.config.configJWT
+package com.luciano.microservicocadastrarclient.configJWT
 
 import com.luciano.microservicocadastrarclient.security.JWTAuthenticationFilter
 import com.luciano.microservicocadastrarclient.security.JWTLoginFilter
@@ -21,7 +21,6 @@ class SecurityConfiguration(
     private val jwtUtil: JWTUtil,
     private val authConfig: AuthenticationConfiguration
 ) {
-
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
@@ -30,14 +29,14 @@ class SecurityConfiguration(
                 it
                     .requestMatchers(
                         "/swagger-ui/**",
-                        "/swagger-ui.html", // <-- adicione isto!
+                        "/swagger-ui.html",
                         "/v3/api-docs/**",
                         "/swagger-resources/**",
                         "/webjars/**",
                         "/configuration/**"
                     ).permitAll()
                     .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                    .requestMatchers(HttpMethod.GET,"/topicos", "/topicos/**").hasAuthority("LEITURA_ESCRITA")
+                    //.requestMatchers(HttpMethod.GET,"/topicos", "/topicos/**").hasAuthority("LEITURA_ESCRITA")
                     .anyRequest().authenticated()
             }
             // Filtro de login ANTES do UsernamePasswordAuthenticationFilter

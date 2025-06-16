@@ -1,7 +1,7 @@
 package com.luciano.microservicocadastrarclient.datamodel
 
 import com.luciano.microservicocadastrarclient.input.dto.client.CreateClientUser
-import com.luciano.microservicocadastrarclient.model.AddressGeneric
+import com.luciano.microservicocadastrarclient.entity.AddressGeneric
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

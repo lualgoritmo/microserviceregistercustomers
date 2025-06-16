@@ -1,6 +1,6 @@
 package com.luciano.microservicocadastrarclient.repository
 
-import com.luciano.microservicocadastrarclient.model.AddressGeneric
+import com.luciano.microservicocadastrarclient.entity.AddressGeneric
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.util.UUID

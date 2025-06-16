@@ -1,8 +1,8 @@
 package com.luciano.microservicocadastrarclient.repository
 
-import com.luciano.microservicocadastrarclient.model.AddressGeneric
-import com.luciano.microservicocadastrarclient.model.ClientUser
-import com.luciano.microservicocadastrarclient.model.Schedule
+import com.luciano.microservicocadastrarclient.entity.AddressGeneric
+import com.luciano.microservicocadastrarclient.entity.ClientUser
+import com.luciano.microservicocadastrarclient.entity.Schedule
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository

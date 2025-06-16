@@ -1,4 +1,4 @@
-package com.luciano.microservicocadastrarclient.config.configJWT
+package com.luciano.microservicocadastrarclient.configJWT
 
 import com.luciano.microservicocadastrarclient.output.gateway.CollaboratorServiceImpl
 import com.luciano.microservicocadastrarclient.service.CollaboratorService
@@ -18,7 +18,7 @@ class JWTUtil(private val collaboratorService:CollaboratorServiceImpl) {
     @Value("\${jwt.secret}")
     private lateinit var secret: String
 
-    private var expiration: Long = 60000
+    private var expiration: Long = 120000
 
     fun generateToken(userName: String, authorities: MutableCollection<out GrantedAuthority>): String? {
          val key:SecretKey = Keys.hmacShaKeyFor(secret.toByteArray())

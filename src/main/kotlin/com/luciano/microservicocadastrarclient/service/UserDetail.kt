@@ -1,6 +1,6 @@
 package com.luciano.microservicocadastrarclient.service
 
-import com.luciano.microservicocadastrarclient.model.Collaborator
+import com.luciano.microservicocadastrarclient.entity.Collaborator
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 

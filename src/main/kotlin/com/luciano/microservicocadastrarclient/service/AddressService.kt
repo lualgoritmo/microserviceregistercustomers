@@ -1,7 +1,7 @@
 package com.luciano.microservicocadastrarclient.service
 
 import com.luciano.microservicocadastrarclient.input.dto.address.CepAddress
-import com.luciano.microservicocadastrarclient.model.AddressGeneric
+import com.luciano.microservicocadastrarclient.entity.AddressGeneric
 import java.util.UUID
 
 interface AddressService {

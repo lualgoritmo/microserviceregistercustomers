@@ -1,7 +1,7 @@
 package com.luciano.microservicocadastrarclient.service
 
 import com.luciano.microservicocadastrarclient.input.dto.shedule.request.CreateSchedule
-import com.luciano.microservicocadastrarclient.model.Schedule
+import com.luciano.microservicocadastrarclient.entity.Schedule
 import java.util.UUID
 
 interface ScheduleService {

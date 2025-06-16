@@ -1,6 +1,6 @@
 package com.luciano.microservicocadastrarclient.security
 
-import com.luciano.microservicocadastrarclient.config.configJWT.JWTUtil
+import com.luciano.microservicocadastrarclient.configJWT.JWTUtil
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse

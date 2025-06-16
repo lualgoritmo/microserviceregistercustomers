@@ -1,8 +1,8 @@
 package com.luciano.microservicocadastrarclient.input.dto.client
 
 import com.fasterxml.jackson.annotation.JsonFormat
-import com.luciano.microservicocadastrarclient.model.AddressGeneric
-import com.luciano.microservicocadastrarclient.model.ClientUser
+import com.luciano.microservicocadastrarclient.entity.AddressGeneric
+import com.luciano.microservicocadastrarclient.entity.ClientUser
 import jakarta.persistence.Column
 import jakarta.validation.constraints.Email
 import java.time.LocalDate

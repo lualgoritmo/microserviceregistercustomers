@@ -1,7 +1,7 @@
 package com.luciano.microservicocadastrarclient.output.gateway
 
 import com.luciano.microservicocadastrarclient.input.dto.address.CepAddress
-import com.luciano.microservicocadastrarclient.model.AddressGeneric
+import com.luciano.microservicocadastrarclient.entity.AddressGeneric
 import com.luciano.microservicocadastrarclient.repository.AddressRepository
 import com.luciano.microservicocadastrarclient.service.AddressService
 import com.luciano.microservicocadastrarclient.service.CadastreClient

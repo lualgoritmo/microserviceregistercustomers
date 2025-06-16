@@ -3,8 +3,7 @@ package com.luciano.microservicocadastrarclient.input.dto.shedule.request
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.luciano.microservicocadastrarclient.input.dto.address.CreateAddressClient
 import com.luciano.microservicocadastrarclient.input.dto.client.CreateClientUser
-import com.luciano.microservicocadastrarclient.input.dto.shedule.response.CollaboratorScheduleResponse
-import com.luciano.microservicocadastrarclient.model.Schedule
+import com.luciano.microservicocadastrarclient.entity.Schedule
 import com.luciano.microservicocadastrarclient.output.utilenum.ScheduleTask
 import jakarta.validation.constraints.NotBlank
 import java.math.BigDecimal

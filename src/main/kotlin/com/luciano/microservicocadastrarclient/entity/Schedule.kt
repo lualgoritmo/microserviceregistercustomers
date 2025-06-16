@@ -1,4 +1,4 @@
-package com.luciano.microservicocadastrarclient.model
+package com.luciano.microservicocadastrarclient.entity
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonManagedReference

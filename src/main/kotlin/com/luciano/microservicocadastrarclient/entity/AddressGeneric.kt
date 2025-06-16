@@ -1,4 +1,4 @@
-package com.luciano.microservicocadastrarclient.model
+package com.luciano.microservicocadastrarclient.entity
 
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonIgnore

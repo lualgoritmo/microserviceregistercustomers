@@ -2,8 +2,8 @@ package com.luciano.microservicocadastrarclient.datamodel
 
 import com.luciano.microservicocadastrarclient.input.dto.address.CepAddress
 import com.luciano.microservicocadastrarclient.input.dto.client.UpdateClient
-import com.luciano.microservicocadastrarclient.model.AddressGeneric
-import com.luciano.microservicocadastrarclient.model.ClientUser
+import com.luciano.microservicocadastrarclient.entity.AddressGeneric
+import com.luciano.microservicocadastrarclient.entity.ClientUser
 import com.luciano.microservicocadastrarclient.service.dtoservice.AddressGenericResponse
 import java.time.LocalDate
 import java.time.LocalDateTime

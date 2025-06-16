@@ -1,7 +1,7 @@
 package com.luciano.microservicocadastrarclient.output.gateway
 
 import com.luciano.microservicocadastrarclient.input.dto.shedule.request.CreateSchedule
-import com.luciano.microservicocadastrarclient.model.Schedule
+import com.luciano.microservicocadastrarclient.entity.Schedule
 import com.luciano.microservicocadastrarclient.output.utilenum.ScheduleTask
 import com.luciano.microservicocadastrarclient.output.utilenum.ServiceStatus.MAX_COLLABORATORS
 import com.luciano.microservicocadastrarclient.repository.ServiceToDoRepository

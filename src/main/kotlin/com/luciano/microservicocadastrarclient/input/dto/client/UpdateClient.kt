@@ -1,6 +1,6 @@
 package com.luciano.microservicocadastrarclient.input.dto.client
 
-import com.luciano.microservicocadastrarclient.model.ClientUser
+import com.luciano.microservicocadastrarclient.entity.ClientUser
 import jakarta.persistence.Column
 import jakarta.validation.constraints.Email
 
