@@ -1,6 +1,5 @@
-package com.luciano.microservicocadastrarclient.security
+package com.luciano.microservicocadastrarclient.security.configJWT
 
-import com.luciano.microservicocadastrarclient.configJWT.JWTUtil
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -15,7 +14,6 @@ class JWTAuthenticationFilter(private val jwtUtil: JWTUtil) : OncePerRequestFilt
         filterChain: FilterChain
     ) {
         val path = request.requestURI
-        // Ignorar rotas do Swagger
         if (
             path.startsWith("/swagger-ui") ||
             path.startsWith("/v3/api-docs") ||

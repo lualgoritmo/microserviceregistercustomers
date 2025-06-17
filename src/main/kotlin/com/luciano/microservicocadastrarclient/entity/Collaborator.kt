@@ -2,6 +2,7 @@ package com.luciano.microservicocadastrarclient.entity
 
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonFormat
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import jakarta.validation.constraints.Email
 import lombok.EqualsAndHashCode
@@ -30,10 +31,18 @@ data class Collaborator(
     @Column(unique = true, nullable = false)
     val email: String,
     val password: String,
-    val roles: MutableList<Role> = mutableListOf(),
     @ManyToMany(fetch = FetchType.LAZY)
     @JsonBackReference("collaboratorReference")
     val schedule: MutableSet<Schedule>?= mutableSetOf(),
     @ManyToMany(mappedBy = "collaborator", cascade = [CascadeType.ALL])
-    var addressCollaborator: MutableSet<AddressGeneric>
+    var addressCollaborator: MutableSet<AddressGeneric>,
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "collaborator_role",
+        joinColumns = [JoinColumn(name = "collaborator_id")],
+        inverseJoinColumns = [JoinColumn(name = "role_id")]
+    )
+    val role: List<Role> = mutableListOf()
+
 )

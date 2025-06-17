@@ -1,7 +1,6 @@
-package com.luciano.microservicocadastrarclient.security
+package com.luciano.microservicocadastrarclient.security.configJWT
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.luciano.microservicocadastrarclient.configJWT.JWTUtil
 import com.luciano.microservicocadastrarclient.entity.Credentials
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest

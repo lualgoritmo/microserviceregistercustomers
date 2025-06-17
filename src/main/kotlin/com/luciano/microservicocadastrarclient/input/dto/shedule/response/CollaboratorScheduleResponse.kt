@@ -27,9 +27,9 @@ data class CollaboratorScheduleResponse(
         rg = "",
         email = this.email,
         password = this.password,
-        roles = mutableListOf(),
         schedule = mutableSetOf(),
-        addressCollaborator = mutableSetOf()
+        addressCollaborator = mutableSetOf(),
+        role = mutableListOf()
     )
 
     companion object {

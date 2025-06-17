@@ -33,7 +33,7 @@ boot:
     jvmArguments: --add-opens=java.base/java.time=ALL-UNNAMED
 
 jwt:
-  secret: lucianogarciadonascimentolucianogarciadonascimento
+  secret: your-very-secure-and-long-secret-key
 
 flyway:
   enabled: true

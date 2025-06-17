@@ -1,4 +1,4 @@
-package com.luciano.microservicocadastrarclient.configJWT
+package com.luciano.microservicocadastrarclient.security.configJWT
 
 import com.luciano.microservicocadastrarclient.output.gateway.CollaboratorServiceImpl
 import com.luciano.microservicocadastrarclient.service.CollaboratorService
@@ -34,25 +34,20 @@ class JWTUtil(private val collaboratorService:CollaboratorServiceImpl) {
     fun isValid(jwtToken: String?): Boolean {
         if (jwtToken.isNullOrBlank()) return false
         return try {
-            Jwts
-                .parserBuilder()
+            Jwts.parserBuilder()
                 .setSigningKey(secret.toByteArray())
                 .build()
                 .parseClaimsJws(jwtToken)
             true
-        } catch (e: Exception) { // pega qualquer exceção!
+        } catch (e: Exception) {
             false
         }
     }
-
-
     fun getAuthentication(jwt: String?): Authentication {
-        val userName =
-            Jwts
-                .parserBuilder()
-                .setSigningKey(secret.toByteArray())
-                .build().parseClaimsJws(jwt)
-                .body.subject
+        val userName = Jwts.parserBuilder()
+            .setSigningKey(secret.toByteArray())
+            .build().parseClaimsJws(jwt)
+            .body.subject
         val user = collaboratorService.loadUserByUsername(userName)
         return UsernamePasswordAuthenticationToken(userName, null, user.authorities)
     }

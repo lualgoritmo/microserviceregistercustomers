@@ -9,7 +9,7 @@ import java.util.UUID
 data class Role(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: UUID?= null,
-    val nome: String
+    val name: String
 ): GrantedAuthority {
-    override fun getAuthority(): String = nome
+    override fun getAuthority(): String = name
 }

@@ -1,7 +1,8 @@
-package com.luciano.microservicocadastrarclient.configJWT
+package com.luciano.microservicocadastrarclient.security
 
-import com.luciano.microservicocadastrarclient.security.JWTAuthenticationFilter
-import com.luciano.microservicocadastrarclient.security.JWTLoginFilter
+import com.luciano.microservicocadastrarclient.security.configJWT.JWTAuthenticationFilter
+import com.luciano.microservicocadastrarclient.security.configJWT.JWTLoginFilter
+import com.luciano.microservicocadastrarclient.security.configJWT.JWTUtil
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -19,7 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 class SecurityConfiguration(
     private val jwtUtil: JWTUtil,
-    private val authConfig: AuthenticationConfiguration
+    private val authManager: AuthenticationConfiguration
 ) {
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
@@ -36,13 +37,14 @@ class SecurityConfiguration(
                         "/configuration/**"
                     ).permitAll()
                     .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                    //.requestMatchers(HttpMethod.GET,"/topicos", "/topicos/**").hasAuthority("LEITURA_ESCRITA")
+                    .requestMatchers(HttpMethod.GET,"/v1/collaborator")
+                    .hasAuthority("ADMIN")
                     .anyRequest().authenticated()
             }
             // Filtro de login ANTES do UsernamePasswordAuthenticationFilter
             .addFilterBefore(
                 JWTLoginFilter(
-                    authManager = authenticationManager(authConfig),
+                    authManager = authenticationManager(authManager),
                     jwtUtil = jwtUtil
                 ),
                 UsernamePasswordAuthenticationFilter::class.java
