@@ -7,4 +7,6 @@ import org.springframework.boot.runApplication
 class MicroservicocadastrarclientApplication
 fun main(args: Array<String>) {
 	runApplication<MicroservicocadastrarclientApplication>(*args)
+
+	println("vamos subir")
 }
